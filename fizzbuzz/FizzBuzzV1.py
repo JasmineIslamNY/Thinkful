@@ -1,6 +1,10 @@
-# how high to count up to
-limit = 100
+import sys
 counter = 1
+
+if int(sys.argv[1:]) > 0:
+	limit = int(sys.argv[1:])
+else:
+	limit = int(raw_input("Please enter a number to count fizzbuzz up to:"))
 
 print "Fizz buzz counting up to {}".format(limit)
 
