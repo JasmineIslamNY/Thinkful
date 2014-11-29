@@ -1,8 +1,8 @@
 import sys
 counter = 1
 
-if int(sys.argv[1:]) > 0:
-	limit = int(sys.argv[1:])
+if len(sys.argv) > 1:
+	limit = int(sys.argv[1])
 else:
 	limit = int(raw_input("Please enter a number to count fizzbuzz up to:"))
 
@@ -21,4 +21,7 @@ while counter <= limit:
 
 
 print "Finished counting!"
+
+
+
 
