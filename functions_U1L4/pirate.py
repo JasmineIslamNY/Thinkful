@@ -27,3 +27,6 @@ def drink_style():
 	print responses
 	return responses
 
+
+
+drink_style()
