@@ -33,10 +33,13 @@ def make_drink(selections):
 	for selection in selections:
 		if selections[selection] == True:
 			drink.append(random.choice(ingredients[selection]))
-                                                                                   
-	print drink
-	return drink
+                
+	your_drink = "Your drink is made from " + str(drink[0])                                                                   
+	for i in range(1,len(drink)):
+		your_drink = your_drink + ", " + str(drink[i]) 
+		
+	return your_drink
 
 if __name__ == '__main__':
 	drink_style()
-	make_drink(responses)
+	print make_drink(responses)
