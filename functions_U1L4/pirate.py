@@ -27,6 +27,16 @@ def drink_style():
 	print responses
 	return responses
 
+def make_drink(selections):
+	import random 
+	drink = []
+	for selection in selections:
+		if selections[selection] == True:
+			drink.append(random.choice(ingredients[selection]))
+                                                                                   
+	print drink
+	return drink
 
-
-drink_style()
+if __name__ == '__main__':
+	drink_style()
+	make_drink(responses)
