@@ -24,7 +24,7 @@ def drink_style():
 			responses[question] = True
 		else:
 			responses[question] = False
-	print responses
+	#print responses
 	return responses
 
 def make_drink(selections):
@@ -41,5 +41,5 @@ def make_drink(selections):
 	return your_drink
 
 if __name__ == '__main__':
-	drink_style()
-	print make_drink(responses)
+	# drink_style()
+	print make_drink(drink_style())
