@@ -37,7 +37,7 @@ class BikeShop(object):
 		print "{} made ${} in profit!".format(self.name, self.profit)
 		print " "
 	
-class Bicycle(BikeShop):
+class Bicycle(object):
 	""" Bicycle need arguments name, weight, and cost """
 	def __init__(self, name, weight, cost):
 		self.name = name
@@ -45,7 +45,7 @@ class Bicycle(BikeShop):
 		self.cost = cost
 	
 		
-class BikeCustomer(BikeShop):
+class BikeCustomer(object):
 	"""BikeCustomer has name, budget, bike_owned and a method called buy_bike with bike_name and price"""
 	def __init__(self, name, budget, bike_owned):
 		self.name = name
@@ -53,7 +53,8 @@ class BikeCustomer(BikeShop):
 		self.bike_owned = bike_owned
 	
 	def buy_bike(self, bike_name, price, shopname):
-	""" buy_bike takes bike_name (which is the actual name of the bike), and the price of the bike, and the bike shop it is being bought from """
+		""" buy_bike takes bike_name (which is the actual name of the bike), and the price of the bike, 
+		and the bike shop it is being bought from """
 		print "{} has ${} in the bank".format(self.name, self.budget)
 		self.bike_owned = bike_name
 		self.budget = self.budget - price
