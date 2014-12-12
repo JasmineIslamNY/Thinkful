@@ -10,7 +10,7 @@ zeus = Bicycle("Zeus", 15, 2000)
 
 #instantiating shop
 jasmines_stock = [[buster, 10], [manx, 20], [shadow, 5], [storm, 5], [wallaby, 10], [zeus, 1]]
-shop = BikeShop("Jasmines Bike Shop", jasmines_stock)
+shop = BikeShop("Jasmine's Bike Shop", jasmines_stock)
 shop.margin = .20
 
 #instantiating customers

@@ -1,6 +1,8 @@
 class BikeShop(object):
-	"""BikeShop has a list called 'inventory', arguments name and inventory, and methods
-	bike_price (self, cost) and sell_bike (bike_name, price) """
+	"""BikeShop needs a list called 'inventory' which should be comprised of bicycle objects and a count of bikes owned
+	arguments for BikeShop are name and inventory, and methods include
+	bike_price (cost of the bike) & sell_bike (real bike name and price) & update_inventory (real name of bike) & print_inventory
+	and print_profit"""
 	
 	def __init__(self, name, inventory):
 		self.name = name
@@ -14,10 +16,12 @@ class BikeShop(object):
 		return price
 				
 	def sell_bike(self, bike_name, price):
+		""" include the real name of the bike and the price """
 		self.profit = self.profit + (price - (price/(1+self.margin)))
 		self.update_inventory(bike_name)
 		
 	def update_inventory(self, bike_name):
+		""" real name of the bike"""
 		for item in self.inventory:
 			if item[0].name == bike_name:
 				item[1] -= 1
@@ -49,6 +53,7 @@ class BikeCustomer(BikeShop):
 		self.bike_owned = bike_owned
 	
 	def buy_bike(self, bike_name, price, shopname):
+	""" buy_bike takes bike_name (which is the actual name of the bike), and the price of the bike, and the bike shop it is being bought from """
 		print "{} has ${} in the bank".format(self.name, self.budget)
 		self.bike_owned = bike_name
 		self.budget = self.budget - price
@@ -58,6 +63,7 @@ class BikeCustomer(BikeShop):
 		print " "
 		
 	def bike_options(self, shopname):
+		"""call with the name of the BikeShop you want the options from """
 		print "These are the bikes that {} can afford from {}:".format(self.name, shopname.name)
 		for item in shopname.inventory:
 			if (shopname.bike_price(item[0].cost)) < self.budget:
