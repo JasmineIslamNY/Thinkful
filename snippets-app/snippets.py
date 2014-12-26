@@ -16,6 +16,17 @@ def put(name, snippet, filename):
 		writer.writerow([name, snippet])
 	logging.debug("Write successful")
 	return name, snippet
+
+def get(name, filename):
+	""" Get a snippet from a file when the snippet name is listed """
+	logging.info("Retrieving {!r} from {!r}".format(name, filename))
+	logging.debug("Reading the file")
+	with open(filename, "r") as file:
+		reader = csv.reader(file)
+		for row in reader:
+			if row[0] == name:
+				print "The snippet for {} is {}".format(row[0], row[1])
+	return name, filename
 	
 def make_parser():
 	""" Construct the command line parser """
@@ -32,6 +43,12 @@ def make_parser():
 	put_parser.add_argument("snippet", help = "The snippet text")
 	put_parser.add_argument("filename", default= "snippets.csv", nargs = "?", help = "The snippet filename")
 	
+	# Subparser for the get command
+	logging.debug("Constructing get subparser")
+	get_parser = subparsers.add_parser("get", help = "Retrieve a snippet")
+	get_parser.add_argument("name", help = "The name of the snippet")
+	get_parser.add_argument("filename", default= "snippets.csv", nargs = "?", help = "The snippet filename")
+	
 	return parser
 	
 def main():
@@ -46,6 +63,10 @@ def main():
 	if command == "put":
 		name, snippet = put(**arguments)
 		print "Stored {!r} as {!r}".format(snippet, name)
+		
+	if command == "get":
+		name, filename = get(**arguments)
+		print "Retrieved {!r} from {!r}".format(name, filename)
 	
 if __name__ == "__main__":
 	main()
