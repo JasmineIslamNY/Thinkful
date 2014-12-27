@@ -83,3 +83,215 @@ INFO:root:Writing "What's today's date?":'Dec 25' to 'snippets.csv'
 DEBUG:root:Opening file
 DEBUG:root:Writing snippet to file
 DEBUG:root:Write successful
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Writing "What's today's date?":'Dec 25' to '6'
+DEBUG:root:Opening file
+DEBUG:root:Writing snippet to file
+DEBUG:root:Write successful
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Writing "What's today's date?":'Dec 26' to 'snippets.csv'
+DEBUG:root:Opening file
+DEBUG:root:Writing snippet to file
+DEBUG:root:Write successful
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Retrieving 'help' from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Retrieving 'butter' from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Retrieving "what's today's date" from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Retrieving "What's today's date" from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Retrieving "What's today's date?" from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Looking for 'egg' from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Looking for 'Dec' from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Looking for 'Dec' from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Looking for 'Dec' from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Looking for 'Dec' from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Writing 'line 1':'This is the first line' to 'line.txt'
+DEBUG:root:Opening file
+DEBUG:root:Writing snippet to file
+DEBUG:root:Write successful
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Writing 'line 2':'This is the second line' to 'line.txt'
+DEBUG:root:Opening file
+DEBUG:root:Writing snippet to file
+DEBUG:root:Write successful
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Writing 'line n':'This is the nth line' to 'line.txt'
+DEBUG:root:Opening file
+DEBUG:root:Writing snippet to file
+DEBUG:root:Write successful
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Retrieving 'line n' from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Retrieving 'line n' from 'line.txt'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Retrieving 'line n' from 'line.txt'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Retrieving 'line n' from 'line.txt'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Looking for 'line' from 'snippets.csv'
+DEBUG:root:Reading the file
+INFO:root:Starting snippets
+INFO:root:Constructing parser
+DEBUG:root:Constructing put subparser
+DEBUG:root:Constructing get subparser
+DEBUG:root:Constructing find subparser
+INFO:root:Looking for 'line' from 'line.txt'
+DEBUG:root:Reading the file
