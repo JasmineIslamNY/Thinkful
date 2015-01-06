@@ -1,3 +1,9 @@
 **/secret.*
 **/.metadata
 .metadata
+*.snap
+*.prefs
+*.xmi
+*.index
+*.resources
+.metadata/.plugins/org.eclipse.core.resources/.projects/tweetful/.markers.snap
