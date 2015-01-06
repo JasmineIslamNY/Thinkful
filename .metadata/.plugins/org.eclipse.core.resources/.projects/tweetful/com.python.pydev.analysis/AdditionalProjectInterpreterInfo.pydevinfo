@@ -1,0 +1,28 @@
+-- VERSION_4
+-- START DISKCACHE
+C:\Users\Jasmine\Google Drive\Programming\Python\Thinkful\.metadata\.plugins\org.eclipse.core.resources\.projects\tweetful\com.python.pydev.analysis\v2_indexcache
+tweetful|1420514313357|C:\Users\Jasmine\Google Drive\Programming\Python\Thinkful\tweetful\tweetful.py
+urls|1420311734791|C:\Users\Jasmine\Google Drive\Programming\Python\Thinkful\tweetful\urls.py
+secret|1420311535677|C:\Users\Jasmine\Google Drive\Programming\Python\Thinkful\tweetful\secret.py
+-- END DISKCACHE
+-- START DICTIONARY
+3
+3=tweetful
+1=urls
+2=secret
+-- END DICTIONARY
+-- START TREE 1
+9
+acc|1|ACCESS_TOKEN_URL!11@
+api|1|API_URL!11@
+aut|1|AUTHORIZE_URL!11@
+cli|2|CLIENT_KEY!19@CLIENT_SECRET!19@
+get|0|
+mai|1|main!26@
+req|1|REQUEST_TOKEN_URL!11@
+sto|0|
+tim|1|TIMELINE_URL!11@
+-- END TREE
+-- START TREE 2
+0
+-- END TREE
