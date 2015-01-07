@@ -1,11 +1,24 @@
 import authorization
 import requests
 import json
+import urlparse
 from urls import *
 
 def read_tweets():
 	""" This will read the last 10 tweets tweeted"""
 	print "Read off a tweet"
+	limit = '10'
+	auth = authorization.authorize()
+	url = USERTIMELINE_URL + "&count=" + limit
+	response = requests.get(url, auth=auth)
+	tweets = json.dumps(response.json(), indent=4)
+	#tweets = json.load(response)
+	#tweets = urlparse.parse_qs(response.content)
+	#first_tweet = tweets.get("text")
+	tweet = json.load(tweets)
+	print tweet
+	#print first_tweet
+	#print json.dumps(response.json(), indent=4)
 	main()
 	
 def write_tweets():
@@ -32,6 +45,7 @@ def main():
 	""" Main Function """
 	# auth = authorization.authorize()
 	# response = requests.get(TIMELINE_URL, auth=auth)
+	# print json.dumps(response.json(), indent=4)
 	option = get_option()
 	if option == 1:
 		write_tweets()
