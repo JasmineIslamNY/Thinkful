@@ -9,11 +9,14 @@ from urls import *
 
 def read_tweets(limit):
 	""" This will read the last 10 tweets tweeted"""
-	if type(limit) == int:
+	try:
+		int(limit)
 		if (limit >= 1 or limit <= 3200):
-			pass
-	else:
-		limit = 10
+			limit = str(limit)
+		else:
+			limit = '10'
+	except TypeError: 
+		limit = '10'
 	
 	print "Printing the last {} tweets".format(limit)
 	auth = authorization.authorize()
@@ -108,7 +111,7 @@ def main():
 		if option == 1:
 			write_tweets(raw_input("Enter your Tweet (C to Cancel or Q to Quit):"))			
 		else:
-			read_tweets(raw_input("Set a limit, default is 10 last tweets")) 
+			read_tweets(raw_input("Set a limit, default is 10 last tweets: ")) 
 	
 if __name__ == "__main__":
 	main()
