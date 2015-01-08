@@ -1,12 +1,20 @@
 import authorization
 import requests
+import argparse
+import logging
 import json
+import sys
 import urlparse
 from urls import *
 
-def read_tweets():
+def read_tweets(limit):
 	""" This will read the last 10 tweets tweeted"""
-	limit = '10'
+	if type(limit) == int:
+		if (limit >= 1 or limit <= 3200):
+			pass
+	else:
+		limit = 10
+	
 	print "Printing the last {} tweets".format(limit)
 	auth = authorization.authorize()
 	url = USERTIMELINE_URL + "&count=" + limit
@@ -21,21 +29,20 @@ def read_tweets():
 	print json.dumps(response.json(), indent=4)
 	print " "
 
-def write_tweets():
+def write_tweets(tweet):
 	""" This will send a tweet"""
 	while True:
-		tweet = raw_input("Enter your Tweet (C to Cancel or Q to Quit):")
-		payload = {}
-		if (tweet == 'C' or tweet == 'c'):
+		if (tweet == 'C' or tweet == 'c' or tweet == ' '):
 			print " "
 			return 1
 		elif (tweet == 'Q' or tweet == 'q'):
 			print " "
-			import sys
 			sys.exit(0)
 		elif (len(tweet) >= 1 and len(tweet) <= 140):
 			payload = {'status': tweet}
 			break
+		else:
+			tweet = raw_input("Enter your Tweet (C to Cancel or Q to Quit):")
 	
 	auth = authorization.authorize()
 	response = requests.post(TWEET_URL, auth=auth, data=payload)
@@ -52,25 +59,56 @@ def get_option():
 	""" This will get the selected option from the user - tweet or read tweet """
 	print "What would you like to do?"
 	print "    Option 1: You can write a tweet"
-	print "    Option 2: You can read your last 10 tweets"
+	print "    Option 2: You can read your tweets"
 	print "    Q to quit the app"
 	option = ''
 	while not(option == '1' or option == '2' or option == 'Q' or option == 'q'):
 		option = raw_input("Please select your option (1 or 2): ")
 	if (option == 'Q' or option == 'q'):
-		import sys
 		sys.exit(0)
 	option = int(option)
 	return option
-	
+		
+def make_parser():
+	""" Construct the command line parser """
+	logging.info("Constructing parser")
+	description = "This app allows you to send and retrieve tweets"
+	parser = argparse.ArgumentParser(description = description)
+
+	subparsers = parser.add_subparsers(dest = "command", help = "Available commands")
+
+	# Subparser for the write command
+	logging.debug("Constructing write subparser")
+	write_parser = subparsers.add_parser("write", help = "Send a Tweet")
+	write_parser.add_argument("tweet", default= 'c', nargs = "?", help = "What do you want to tweet?")
+
+	# Subparser for the read command
+	logging.debug("Constructing read subparser")
+	read_parser = subparsers.add_parser("read", help = "Retrieve your tweets")
+	read_parser.add_argument("limit", default= "10", nargs = "?", help = "Set a limit, default is 10 last tweets")
+
+	return parser
+
 def main():
-	""" Main Function """
+	""" Main function """
+	parser = make_parser()
+	arguments = parser.parse_args(sys.argv[1:])
+	# Convert parsed arguments from Namespace to dictionary
+	arguments = vars(arguments)
+	command = arguments.pop("command")
+
+	if command == "write":
+		write_tweets(**arguments)
+
+	if command == "read":
+		read_tweets(**arguments)
+
 	while True:
 		option = get_option()
 		if option == 1:
-			write_tweets()			
+			write_tweets(raw_input("Enter your Tweet (C to Cancel or Q to Quit):"))			
 		else:
-			read_tweets()
+			read_tweets(raw_input("Set a limit, default is 10 last tweets")) 
 	
 if __name__ == "__main__":
 	main()
