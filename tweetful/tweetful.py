@@ -83,7 +83,7 @@ def make_parser():
 	# Subparser for the write command
 	logging.debug("Constructing write subparser")
 	write_parser = subparsers.add_parser("write", help = "Send a Tweet")
-	write_parser.add_argument("tweet", default= 'c', nargs = "?", help = "What do you want to tweet?")
+	write_parser.add_argument("tweet", default= 'c', nargs = "?", help = "What do you want to tweet? Surround with quotes.")
 
 	# Subparser for the read command
 	logging.debug("Constructing read subparser")
