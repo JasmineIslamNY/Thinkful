@@ -22,8 +22,9 @@ def read_tweets(limit):
 	auth = authorization.authorize()
 	url = USERTIMELINE_URL + "&count=" + limit
 	response = requests.get(url, auth=auth)
-	#tweets = json.dumps(response.json(), indent=4)
-	#tweets = json.load(response)
+	#tweets = json.loads(response)
+	#for tweet in tweets:
+	#	print tweet["text"]
 	#tweets = urlparse.parse_qs(response.content)
 	#first_tweet = tweets.get("text")
 	#tweet = json.load(tweets)
