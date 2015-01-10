@@ -10,18 +10,19 @@ def calculate_discount(item_cost, relative_discount, absolute_discount):
     
     if discounted_price < 0:
         discounted_price = 0
-
-def validate_entries(item_cost, relative_discount, absolute_discount):
-    """ This will read the last 10 tweets tweeted"""
-    try:
-        int(limit)
-        if (limit >= 1 or limit <= 3200):
-            limit = str(limit)
-        else:
-            limit = '10'
-    except TypeError: 
-        limit = '10'
         
+    return discounted_price
+
+def validate_entry(entry):
+    """ Validate for positive number or 0 """
+    try:
+        float(entry)
+        if (entry < 0):
+            entry = -1
+    except TypeError: 
+        entry = -1
+    return entry
+
 def make_parser():
     """ Construct the command line parser """
     description = "This app allows you to enter a cost and discounts to get the discounted price"
@@ -47,8 +48,17 @@ def main():
     relative_discount = args.Percentage
     absolute_discount = args.Dollar
     
+    item_cost = validate_entry(item_cost)
+    relative_discount = validate_entry(relative_discount)
+    absolute_discount = validate_entry(absolute_discount)
     
-    
-    
+    if (item_cost == -1 or relative_discount == -1 or absolute_discount == -1):
+        print "-1"
+        return -1
+    else:
+        discounted_price = calculate_discount(item_cost, relative_discount, absolute_discount)
+        print discounted_price
+        return discounted_price
+        
 if __name__ == "__main__":
     main()
