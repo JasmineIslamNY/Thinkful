@@ -34,12 +34,27 @@ def make_parser():
         
 def get_amounts():
     """ This will get the cost and discounts from the user if CLI inputs are invalid """
-    print "Some of your entries were invalid, please re-enter?"
+    print "Some of your entries were invalid, please re-enter..."
     item_cost = raw_input("Please enter how much the item cost: ")
     relative_discount = raw_input("Please enter the discount amount: ")
     absolute_discount = raw_input("Please enter the $ amount discount: ")
     
     return item_cost, relative_discount, absolute_discount
+
+
+def discount_calculator(item_cost, relative_discount, absolute_discount):
+    item_cost = validate_entry(item_cost)
+    relative_discount = validate_entry(relative_discount)
+    absolute_discount = validate_entry(absolute_discount)
+    
+    if (item_cost == -1 or relative_discount == -1 or absolute_discount == -1):
+        print "Invalid number entered for cost and/or discount"
+        raise ValueError("Invalid entry")
+        return -1
+    else:
+        discounted_price = calculate_discount(item_cost, relative_discount, absolute_discount)
+        print discounted_price
+        return discounted_price
 
 def main():
     parser = make_parser()
@@ -48,17 +63,13 @@ def main():
     relative_discount = args.Percentage
     absolute_discount = args.Dollar
     
-    item_cost = validate_entry(item_cost)
-    relative_discount = validate_entry(relative_discount)
-    absolute_discount = validate_entry(absolute_discount)
+    discounted_price = discount_calculator(item_cost, relative_discount, absolute_discount)
     
-    if (item_cost == -1 or relative_discount == -1 or absolute_discount == -1):
-        print "-1"
-        return -1
-    else:
-        discounted_price = calculate_discount(item_cost, relative_discount, absolute_discount)
-        print discounted_price
-        return discounted_price
-        
+    if discounted_price == -1:
+        item_cost, relative_discount, absolute_discount = get_amounts()
+        discounted_price = discount_calculator(item_cost, relative_discount, absolute_discount)
+    
+    return discounted_price
+
 if __name__ == "__main__":
     main()
