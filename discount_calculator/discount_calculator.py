@@ -5,25 +5,33 @@ def calculate_discount(item_cost, relative_discount, absolute_discount):
     Calculate the discounted price of item given the item cost, 
     a relative discount, and an additional price discount
     """
+    item_cost = float(item_cost)
+    relative_discount = float(relative_discount)
+    absolute_discount = float(absolute_discount)
+    
     if relative_discount < 1:
         relative_discount *= 100
-    discounted_price = item_cost - (item_cost * (relative_discount/100)) - absolute_discount 
+    
+    discounted_price = (item_cost - (item_cost * (relative_discount / 100)) - absolute_discount)
     
     if discounted_price < 0:
         discounted_price = 0
         
+    #trying to get rid of extra digits
+    discounted_price *= 100
+    discounted_price = int(discounted_price)
+    discounted_price /= 100.00
+
     return discounted_price
 
 def validate_entry(entry):
     """ Validate for positive number or 0 """
     try:
-        float(entry)
+        entry = float(entry)
         if (entry < 0):
             entry = -1
-            int(entry)
     except TypeError: 
         entry = -1
-        int(entry)
     return entry
 
 def make_parser():
@@ -46,16 +54,16 @@ def get_amounts():
 
 
 def discount_calculator(item_cost, relative_discount, absolute_discount):
-    item_cost = validate_entry(item_cost)
-    relative_discount = validate_entry(relative_discount)
-    absolute_discount = validate_entry(absolute_discount)
+    cost = validate_entry(item_cost)
+    relative = validate_entry(relative_discount)
+    absolute = validate_entry(absolute_discount)
     
-    if (item_cost == -1 or relative_discount == -1 or absolute_discount == -1):
+    if (cost == -1 or relative == -1 or absolute == -1):
         print "Invalid number entered for cost and/or discount"
         raise ValueError("Invalid entry")
-        return -1
+        # return -1 - in production would remove the ValueError and just prompt user to reinput values
     else:
-        discounted_price = calculate_discount(item_cost, relative_discount, absolute_discount)
+        discounted_price = calculate_discount(cost, relative, absolute)
         print "Discounted price is ${:.2f}".format(discounted_price)
         return discounted_price
 
