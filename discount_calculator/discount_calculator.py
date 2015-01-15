@@ -1,12 +1,13 @@
 import argparse
-import sys
 
 def calculate_discount(item_cost, relative_discount, absolute_discount):
     """
     Calculate the discounted price of item given the item cost, 
     a relative discount, and an additional price discount
     """
-    discounted_price = item_cost - (item_cost * relative_discount) - absolute_discount 
+    if relative_discount < 1:
+        relative_discount *= 100
+    discounted_price = item_cost - (item_cost * (relative_discount/100)) - absolute_discount 
     
     if discounted_price < 0:
         discounted_price = 0
@@ -19,8 +20,10 @@ def validate_entry(entry):
         float(entry)
         if (entry < 0):
             entry = -1
+            int(entry)
     except TypeError: 
         entry = -1
+        int(entry)
     return entry
 
 def make_parser():
@@ -53,7 +56,7 @@ def discount_calculator(item_cost, relative_discount, absolute_discount):
         return -1
     else:
         discounted_price = calculate_discount(item_cost, relative_discount, absolute_discount)
-        print discounted_price
+        print "Discounted price is ${:.2f}".format(discounted_price)
         return discounted_price
 
 def main():
