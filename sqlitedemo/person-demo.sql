@@ -6,7 +6,11 @@ create table person (
     age  int 
 );
 
-insert into person values (1, 'Bob', 22),
-    (2, 'Sue', 34),
-    (3, 'Timmy', 19),
+insert into person values 
+    (1, 'Bob', 22);
+insert into person values
+    (2, 'Sue', 34);
+insert into person values
+    (3, 'Timmy', 19);
+insert into person values
     (4, 'Ellen', 24);
