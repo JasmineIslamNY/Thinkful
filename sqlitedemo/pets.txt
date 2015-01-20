@@ -1,0 +1,57 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE species (
+	id int primary_key not null,
+	name text
+);
+INSERT INTO "species" VALUES(1,'Cat');
+INSERT INTO "species" VALUES(2,'Dog');
+INSERT INTO "species" VALUES(3,'Rabbit');
+CREATE TABLE breed (
+	id int primary_key not null,
+	name text,
+	species_id int
+);
+INSERT INTO "breed" VALUES(1,'Abyssinian',1);
+INSERT INTO "breed" VALUES(2,'Bombay',1);
+INSERT INTO "breed" VALUES(3,'Persian',1);
+INSERT INTO "breed" VALUES(4,'Akita',2);
+INSERT INTO "breed" VALUES(5,'German Shepherd',2);
+INSERT INTO "breed" VALUES(6,'St. Bernard',2);
+INSERT INTO "breed" VALUES(7,'Californian',3);
+INSERT INTO "breed" VALUES(8,'Dutch',3);
+INSERT INTO "breed" VALUES(9,'Palomino',3);
+CREATE TABLE pet (
+	id int primary_key not null,
+	name text,
+	adopted int,
+	dead int,
+	breed_id int
+);
+INSERT INTO "pet" VALUES(1,'Fluffy',0,0,2);
+INSERT INTO "pet" VALUES(2,'Patches',1,0,2);
+INSERT INTO "pet" VALUES(3,'Blinky',0,1,5);
+INSERT INTO "pet" VALUES(4,'Carl',1,1,4);
+INSERT INTO "pet" VALUES(5,'Zeus',1,0,4);
+INSERT INTO "pet" VALUES(6,'Mimi',1,0,9);
+CREATE TABLE person (
+	id int primary_key not null,
+	first_name text,
+	last_name text,
+	age int,
+	email text,
+	phone text
+);
+INSERT INTO "person" VALUES(1,'John','Smith',30,'jsmith@gmail.com','555-1212');
+INSERT INTO "person" VALUES(2,'Megan','McAllister',54,'Meg@hotmail.com','324-453-2345');
+INSERT INTO "person" VALUES(3,'Hannah','Rahman',23,'pinky@yahoo.com','212-830-1234');
+INSERT INTO "person" VALUES(4,'Patrick','Bateman',41,'cool@guy.com','123-456-7890');
+CREATE TABLE person_pet (
+	person_id int,
+	pet_id int
+);
+INSERT INTO "person_pet" VALUES(1,4);
+INSERT INTO "person_pet" VALUES(1,5);
+INSERT INTO "person_pet" VALUES(2,2);
+INSERT INTO "person_pet" VALUES(3,6);
+COMMIT;
