@@ -1,4 +1,5 @@
 import csv
+import psycopg2
  
 def csv_to_dictionary(csv_file):
     """ Convert csv file to dictionary"""
@@ -26,22 +27,36 @@ def clean_up_dictlist(listtoclean):
         line["species name"] = remove_whitespace(line["species name"])
         line["species name"] = make_into_title(line["species name"])
         line["shelter name"] = make_upper(line["shelter name"])
-            """ 
-            print(line["Name"]),
-            print(line["age"]),
-            print(line["breed name"]),
-            print(line["species name"]),
-            print(line["shelter name"]),
-            print(line["adopted"]) 
-            """
     return listtoclean
+     
+def print_dictionary(dictlist):
+    for line in dictlist:
+        print(line["Name"]),
+        print(line["age"]),
+        print(line["breed name"]),
+        print(line["species name"]),
+        print(line["shelter name"]),
+        print(line["adopted"])      
      
 def update_db():
     pass     
      
 def load_db(payload):
-    pass
+    try:
+        conn=psycopg2.connect("dbname='pets' user='jasmine' password='731Lexington'")
+    except:
+        print "I am unable to connect to the database."
+    """
+        cur = conn.cursor()
+    try:
+        cur.execute(""""""SELECT * from bar"""""")
+    except:
+        print "I can't SELECT from bar"
 
+    rows = cur.fetchall()
+        for row in rows:
+            print "   ", row[1][1]
+    """
 if __name__ == "__main__":
     dictlist = []
     with open("pets.csv") as f:
@@ -49,13 +64,6 @@ if __name__ == "__main__":
         for line in csvdict:
             dictlist.append(line)
     dictlist = clean_up_dictlist(dictlist)
-    print dictlist
-    for line in dictlist:
-        print(line["Name"]),
-        print(line["age"]),
-        print(line["breed name"]),
-        print(line["species name"]),
-        print(line["shelter name"]),
-        print(line["adopted"]) 
+    print_dictionary(dictlist)
     load_db(dictlist)
     update_db()
