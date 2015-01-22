@@ -28,6 +28,9 @@ def clean_up_dictlist(listtoclean):
         line["species_name"] = remove_whitespace(line["species_name"])
         line["species_name"] = make_into_title(line["species_name"])
         line["shelter_name"] = make_upper(line["shelter_name"])
+        line["shelter_name"] = remove_whitespace(line["shelter_name"])
+        line["age"] = remove_whitespace(line["age"])
+        line["adopted"] = remove_whitespace(line["adopted"])
     return listtoclean
      
 def print_dictionary(dictlist):
@@ -43,32 +46,38 @@ def update_db():
     pass     
  
 def load_db(payload):
-    print payload
+    #print payload
+    #payload = tuple(payload)
+    #print payload
     
-    try:
-        conn=psycopg2.connect("dbname='pets' user='action' password='731Lexington'")
-        print "I connected"
-    except:
-        print "I am unable to connect to the database."
-    cur = conn.cursor()
-    try:
-        cur.execute("""INSERT INTO pet (name, age, breed_id, shelter_id) VALUES ('Titch', 1, 1, 1)""")      
-        # cur.executemany("""INSERT INTO pet (name, age, breed_id, shelter_id, adopted) VALUES (%(Name)s, %(age)s, (select breed_id from breed where breed_name = %(breed_name)s), (select shelter_id from shelter where shelter_name = %(shelter_name)s), bool(%(adopted)s)""", payload)
-    except:
-        print "I can't Insert Into pet"
-    # else cur.commit()
+    for line in payload:
+      print line
+      try:
+          conn=psycopg2.connect("dbname='pets' user='action' password='731Lexington'")
+          print "I connected"
+      except:
+          print "I am unable to connect to the database."
+      cur = conn.cursor()
+      try:
+          #cur.execute("""INSERT INTO pet (name, age, breed_id, shelter_id) VALUES ('Titch', 1, 1, 1)""")      
+          #cur.execute("INSERT INTO pet (name, age) VALUES (%(Name)s, %(age)s)", line)
+          cur.execute("INSERT INTO pet (name, age, shelter_id, breed_id, adopted) VALUES (%(Name)s, %(age)s, (select id from shelter where name = %(shelter_name)s), (select id from breed where species_id in (select id from species where name = %(species_name)s) and name = %(breed_name)s), bool(%(adopted)s))", line)
+          #cur.commit()
+      except:
+          print "I can't Insert Into pet"
+      # else cur.commit()
     
-    cur = conn.cursor()
-    try:
-        cur.execute("""SELECT * from pet""")
-    except:
-        print "I can't SELECT from pet"
+      cur = conn.cursor()
+      try:
+          cur.execute("""SELECT * from pet""")
+      except:
+          print "I can't SELECT from pet"
     
-    rows = cur.fetchall()
-    for row in rows:
-        print "   ", row
+      rows = cur.fetchall()
+      for row in rows:
+          print "   ", row
         
-    return payload
+      return payload
     
 
 
