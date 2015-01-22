@@ -62,7 +62,7 @@ def load_db(payload):
           #cur.execute("""INSERT INTO pet (name, age, breed_id, shelter_id) VALUES ('Titch', 1, 1, 1)""")      
           #cur.execute("INSERT INTO pet (name, age) VALUES (%(Name)s, %(age)s)", line)
           cur.execute("INSERT INTO pet (name, age, shelter_id, breed_id, adopted) VALUES (%(Name)s, %(age)s, (select id from shelter where name = %(shelter_name)s), (select id from breed where species_id in (select id from species where name = %(species_name)s) and name = %(breed_name)s), bool(%(adopted)s))", line)
-          #cur.commit()
+          conn.commit()
       except:
           print "I can't Insert Into pet"
       # else cur.commit()
