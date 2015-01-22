@@ -47,11 +47,11 @@ def update_db():
  
 def load_db(payload):
     #print payload
-    #payload = tuple(payload)
+    payload = tuple(payload)
     #print payload
     
     for line in payload:
-      print line
+      #print line
       try:
           conn=psycopg2.connect("dbname='pets' user='action' password='731Lexington'")
           print "I connected"
@@ -67,19 +67,15 @@ def load_db(payload):
           print "I can't Insert Into pet"
       # else cur.commit()
     
-      cur = conn.cursor()
-      try:
-          cur.execute("""SELECT * from pet""")
-      except:
-          print "I can't SELECT from pet"
+    cur = conn.cursor()
+    try:
+      cur.execute("""SELECT * from pet""")
+    except:
+      print "I can't SELECT from pet"
     
-      rows = cur.fetchall()
-      for row in rows:
-          print "   ", row
-        
-      return payload
-    
-
+    rows = cur.fetchall()
+    for row in rows:
+      print "   ", row
 
 if __name__ == "__main__":
     dictlist = []
@@ -89,5 +85,5 @@ if __name__ == "__main__":
             dictlist.append(line)
     dictlist = clean_up_dictlist(dictlist)
     # print_dictionary(dictlist)
-    dictlist = load_db(dictlist)
+    load_db(dictlist)
     update_db()
