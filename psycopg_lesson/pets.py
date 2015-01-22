@@ -43,20 +43,20 @@ def update_db():
      
 def load_db(payload):
     try:
-        conn=psycopg2.connect("dbname='pets' user='jasmine' password='731Lexington'")
+        conn=psycopg2.connect("dbname='pets' user='action' password='731Lexington'")
+        print "I connected"
     except:
         print "I am unable to connect to the database."
-    """
-        cur = conn.cursor()
+    cur = conn.cursor()
     try:
-        cur.execute(""""""SELECT * from bar"""""")
+        cur.execute("""SELECT * from species""")
     except:
         print "I can't SELECT from bar"
-
+    
     rows = cur.fetchall()
-        for row in rows:
-            print "   ", row[1][1]
-    """
+    for row in rows:
+        print "   ", row
+    
 if __name__ == "__main__":
     dictlist = []
     with open("pets.csv") as f:
@@ -64,6 +64,6 @@ if __name__ == "__main__":
         for line in csvdict:
             dictlist.append(line)
     dictlist = clean_up_dictlist(dictlist)
-    print_dictionary(dictlist)
+    # print_dictionary(dictlist)
     load_db(dictlist)
     update_db()
