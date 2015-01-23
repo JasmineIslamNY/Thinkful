@@ -110,7 +110,7 @@ def load_db(payload):
             #print "Ran statement INSERT INTO pet (name, age, shelter_id, breed_id, adopted) VALUES ({Name}, {age}, (select id from shelter where name = {shelter_name}), (select id from breed where species_id in (select id from species where name = {species_name}) and name = {breed_name}), bool({adopted}))".format(line)
         except:
             print "I can't insert into pet, rolling back all inserts"
-            #conn.rollback()
+            conn.rollback()
     conn.commit()
           
     try:
