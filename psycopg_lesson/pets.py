@@ -57,9 +57,7 @@ def update_db():
     pass     
  
 def load_db(payload):
-    #print payload
     payload = tuple(payload)
-    #print payload
     
     try:
         conn=psycopg2.connect("dbname='pets' user='action' password='731Lexington'")
@@ -68,60 +66,72 @@ def load_db(payload):
         print "I am unable to connect to the database."
     cur = conn.cursor()
     
-    """
     for line in payload:
         try:
-            #cur.execute("INSERT INTO pet (name, age) VALUES (%(Name)s, %(age)s)", line)
-            cur.execute("SELECT * FROM species WHERE name = %s", line["species_name"])
-            print "Ran statement SELECT * FROM species WHERE name = {}".format(line["species_name"])
+            cur.execute("SELECT * FROM species WHERE name = %(species_name)s", line)
+			print "Species found"
         except:
-            print "No record found for {}, trying to insert".format(line["species_name"])
+            print "No record found, trying to insert"
             try:
-                cur.execute ("INSERT INTO species (name) VALUES %s", line["species_name"]) 
+                cur.execute("INSERT INTO species (name) VALUES %(species_name)s", line) 
             except:
                 print "Could not insert, rolling back"             
                 conn.rollback()
+				conn.close()
                 sys.exit(0)
     conn.commit()    
     
-    
-    
     for line in payload:
         try:
-            #cur.execute("INSERT INTO pet (name, age) VALUES (%(Name)s, %(age)s)", line)
             cur.execute("SELECT * FROM breed WHERE name = %(breed_name)s and species_id in (SELECT id FROM species WHERE name = %(species_name)s)", line)
-            print "Ran statement SELECT * FROM breed WHERE name = {} and species_id in (SELECT id FROM species WHERE name = {})".format(line["breed_name"], line["species_name"])
+            print "Breed found"
         except:
-            print "No record found for {}, trying to insert".format(line["breed_name"])
+            print "No record found, trying to insert"
             try:
-                cur.execute ("INSERT INTO breed (name, species_id) VALUES (%(breed_name)s, (SELECT id FROM species WHERE name = %(species_name)s))", line) 
+                cur.execute("INSERT INTO breed (name, species_id) VALUES (%(breed_name)s, (SELECT id FROM species WHERE name = %(species_name)s))", line) 
             except:
                 print "Could not insert, rolling back"             
                 conn.rollback()
+				conn.close()
                 sys.exit(0)
     conn.commit()       
-    """
     
     for line in payload:
         try:
-            #cur.execute("""INSERT INTO pet (name, age, breed_id, shelter_id) VALUES ('Titch', 1, 1, 1)""")       
-            #cur.execute("INSERT INTO pet (name, age) VALUES (%(Name)s, %(age)s)", line)
             cur.execute("INSERT INTO pet (name, age, shelter_id, breed_id, adopted) VALUES (%(Name)s, %(age)s, (select id from shelter where name = %(shelter_name)s), (select id from breed where species_id in (select id from species where name = %(species_name)s) and name = %(breed_name)s), bool(%(adopted)s))", line)
-            #print "Ran statement INSERT INTO pet (name, age, shelter_id, breed_id, adopted) VALUES ({Name}, {age}, (select id from shelter where name = {shelter_name}), (select id from breed where species_id in (select id from species where name = {species_name}) and name = {breed_name}), bool({adopted}))".format(line)
         except:
             print "I can't insert into pet, rolling back all inserts"
             conn.rollback()
     conn.commit()
           
     try:
-        cur.execute("""SELECT * from pet""")              
+        cur.execute("""SELECT * from species""")   			
     except:
-        print "I can't SELECT from pet"
+        print "I can't SELECT from species"
     
     rows = cur.fetchall()
     for row in rows:
         print "   ", row
+
+    try: 
+		cur.execute("""SELECT * from breed""")   			
+    except:
+        print "I can't SELECT from breed"
     
+    rows = cur.fetchall()
+    for row in rows:
+        print "   ", row
+
+    try:  
+        cur.execute("""SELECT * from pet""")  			
+    except:
+        print "I can't SELECT from pets"
+    
+    rows = cur.fetchall()
+    for row in rows:
+        print "   ", row
+
+		
 if __name__ == "__main__":
     dictlist = []
     with open("pets.csv") as f:
