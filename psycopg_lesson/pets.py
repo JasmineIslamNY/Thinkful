@@ -19,6 +19,10 @@ def make_upper(word):
     word = word.upper()
     return word
 
+def empty_to_none(word):
+	if not word:
+		word = None
+	
 def clean_up_dictlist(listtoclean):
     for line in listtoclean:
         line["Name"] = remove_whitespace(line["Name"])
@@ -31,6 +35,12 @@ def clean_up_dictlist(listtoclean):
         line["shelter_name"] = remove_whitespace(line["shelter_name"])
         line["age"] = remove_whitespace(line["age"])
         line["adopted"] = remove_whitespace(line["adopted"])
+		line["Name"] = empty_to_none(line["Name"])
+		line["breed_name"] = empty_to_none(line["breed_name"])
+		line["species_name"] = empty_to_none(line["species_name"])
+		line["shelter_name"] = empty_to_none(line["shelter_name"])
+		line["age"] = empty_to_none(line["age"])
+		line["adopted"] = empty_to_none(line["adopted"])
     return listtoclean
      
 def print_dictionary(dictlist):
