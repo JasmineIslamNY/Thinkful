@@ -25,23 +25,17 @@ def empty_to_none(word):
     return word
 
 def clean_up_dictlist(listtoclean):
+    """ This method cleans up the csv file for db entry, it: 
+        removes empty spaces, 
+        capitalizes the first letter of each word, 
+        and then sets empty variables to None, which is the Python null """
     for line in listtoclean:
-        line["Name"] = remove_whitespace(line["Name"])
-        line["Name"] = make_into_title(line["Name"])
-        line["breed_name"] = remove_whitespace(line["breed_name"])
-        line["breed_name"] = make_into_title(line["breed_name"])
-        line["species_name"] = remove_whitespace(line["species_name"])
-        line["species_name"] = make_into_title(line["species_name"])
-        line["shelter_name"] = make_upper(line["shelter_name"])
-        line["shelter_name"] = remove_whitespace(line["shelter_name"])
-        line["age"] = remove_whitespace(line["age"])
-        line["adopted"] = remove_whitespace(line["adopted"])
-        line["Name"] = empty_to_none(line["Name"])
-        line["breed_name"] = empty_to_none(line["breed_name"])
-        line["species_name"] = empty_to_none(line["species_name"])
-        line["shelter_name"] = empty_to_none(line["shelter_name"])
-        line["age"] = empty_to_none(line["age"])
-        line["adopted"] = empty_to_none(line["adopted"])
+        line["Name"] = empty_to_none(make_into_title(remove_whitespace(line["Name"])))
+        line["breed_name"] = empty_to_none(make_into_title(remove_whitespace(line["breed_name"])))
+        line["species_name"] = empty_to_none(make_into_title(remove_whitespace(line["species_name"])))
+        line["shelter_name"] = empty_to_none(make_into_title(remove_whitespace(line["shelter_name"])))
+        line["age"] = empty_to_none(make_into_title(remove_whitespace(line["age"])))
+        line["adopted"] = empty_to_none(make_into_title(remove_whitespace(line["adopted"])))                                        
     return listtoclean
      
 def print_dictionary(dictlist):
@@ -70,7 +64,7 @@ def load_db(payload):
         except:
             print "No record found, trying to insert"
             try:
-                cur.execute("INSERT INTO species (name) VALUES %(species_name)s", line) 
+                cur.execute("INSERT INTO species (name) VALUES (%(species_name)s)", line) 
             except:
                 print "Could not insert, rolling back"             
                 conn.rollback()
@@ -85,7 +79,7 @@ def load_db(payload):
         except:
             print "No record found, trying to insert"
             try:
-                cur.execute("INSERT INTO shelter (name) VALUES %(shelter_name)s", line) 
+                cur.execute("INSERT INTO shelter (name) VALUES (%(shelter_name)s)", line) 
             except:
                 print "Could not insert, rolling back"             
                 conn.rollback()
