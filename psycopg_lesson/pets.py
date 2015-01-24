@@ -53,49 +53,49 @@ def load_db(payload):
     
     try:
         conn=psycopg2.connect("dbname='pets' user='postgres' password='731Lexington'")
-        print "I connected"
+        #print "I connected"
     except:
         print "I am unable to connect to the database."
     cur = conn.cursor()
     
     for line in payload:
         if line["species_name"] == None:
-            print(line["species_name"])
+            #print(line["species_name"])
             continue
         
         cur.execute("""INSERT INTO species (name) SELECT %(species_name)s WHERE NOT EXISTS (SELECT 1 FROM species WHERE name = %(species_name)s)""", line)
-        print(line["species_name"])
+        #print(line["species_name"])
         
     conn.commit()    
     
     for line in payload:
         if line["shelter_name"] == None:
-            print(line["shelter_name"])
+            #print(line["shelter_name"])
             continue
         
         cur.execute("INSERT INTO shelter (name) SELECT %(shelter_name)s WHERE NOT EXISTS (SELECT 1 FROM shelter WHERE name = %(shelter_name)s)", line)
-        print(line["shelter_name"])
+        #print(line["shelter_name"])
         
     conn.commit()       
     
     
     for line in payload:
         if line["breed_name"] == None:
-            print(line["breed_name"])
+            #print(line["breed_name"])
             continue
         
         cur.execute("INSERT INTO breed (name, species_id) SELECT %(breed_name)s, (SELECT id FROM species WHERE name = %(species_name)s) WHERE NOT EXISTS (SELECT 1 FROM breed WHERE name = %(breed_name)s and species_id in (SELECT id FROM species WHERE name = %(species_name)s))", line)
-        print(line["breed_name"])
+        #print(line["breed_name"])
         
     conn.commit()       
     
     for line in payload:
         if line["Name"] == None:
-            print(line["Name"])
+            #print(line["Name"])
             continue
         
         cur.execute("INSERT INTO pet (name, age, shelter_id, breed_id, adopted) VALUES (%(Name)s, %(age)s, (select id from shelter where name = %(shelter_name)s), (select id from breed where species_id in (select id from species where name = %(species_name)s) and name = %(breed_name)s), bool(%(adopted)s))", line)
-        print(line["breed_name"])
+        #print(line["breed_name"])
                 
     conn.commit()
           
@@ -117,6 +117,7 @@ def load_db(payload):
 
     cur.execute("""SELECT * from pet""")              
     rows = cur.fetchall()
+    print("   ID | Name | Age | Adopted | Dead | Breed ID | Shelter ID")
     for row in rows:
         print "   ", row
     
