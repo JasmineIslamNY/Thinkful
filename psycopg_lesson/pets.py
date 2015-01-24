@@ -62,30 +62,20 @@ def load_db(payload):
         if line["species_name"] == None:
             print(line["species_name"])
             continue
-        try:
-            cur.execute("""INSERT INTO species (name) SELECT %(species_name)s WHERE NOT EXISTS (SELECT 1 FROM species WHERE name = %(species_name)s)""", line)
-            print(line["species_name"])
-        except:
-            print(line["species_name"])
-            print "No record found, and had an issue inserting"
-            conn.rollback()
-            conn.close()
-            sys.exit(0)
+        
+        cur.execute("""INSERT INTO species (name) SELECT %(species_name)s WHERE NOT EXISTS (SELECT 1 FROM species WHERE name = %(species_name)s)""", line)
+        print(line["species_name"])
+        
     conn.commit()    
     
     for line in payload:
         if line["shelter_name"] == None:
             print(line["shelter_name"])
             continue
-        try:
-            cur.execute("INSERT INTO shelter (name) SELECT %(shelter_name)s WHERE NOT EXISTS (SELECT 1 FROM shelter WHERE name = %(shelter_name)s)", line)
-            print(line["shelter_name"])
-        except:
-            print(line["shelter_name"])
-            print "No record found, and had an issue inserting"
-            conn.rollback()
-            conn.close()
-            sys.exit(0)
+        
+        cur.execute("INSERT INTO shelter (name) SELECT %(shelter_name)s WHERE NOT EXISTS (SELECT 1 FROM shelter WHERE name = %(shelter_name)s)", line)
+        print(line["shelter_name"])
+        
     conn.commit()       
     
     
@@ -93,65 +83,43 @@ def load_db(payload):
         if line["breed_name"] == None:
             print(line["breed_name"])
             continue
-        try:
-            cur.execute("INSERT INTO breed (name, species_id) SELECT %(breed_name)s, (SELECT id FROM species WHERE name = %(species_name)s) WHERE NOT EXISTS (SELECT 1 FROM breed WHERE name = %(breed_name)s and species_id in (SELECT id FROM species WHERE name = %(species_name)s))", line)
-            print(line["breed_name"])
-        except:
-            print(line["breed_name"])
-            print "No record found, and had an issue inserting"
-            conn.rollback()
-            conn.close()
-            sys.exit(0)
+        
+        cur.execute("INSERT INTO breed (name, species_id) SELECT %(breed_name)s, (SELECT id FROM species WHERE name = %(species_name)s) WHERE NOT EXISTS (SELECT 1 FROM breed WHERE name = %(breed_name)s and species_id in (SELECT id FROM species WHERE name = %(species_name)s))", line)
+        print(line["breed_name"])
+        
     conn.commit()       
     
     for line in payload:
-        if line["breed_name"] == None:
-            print(line["breed_name"])
+        if line["Name"] == None:
+            print(line["Name"])
             continue
-        try:
-            cur.execute("INSERT INTO pet (name, age, shelter_id, breed_id, adopted) VALUES (%(Name)s, %(age)s, (select id from shelter where name = %(shelter_name)s), (select id from breed where species_id in (select id from species where name = %(species_name)s) and name = %(breed_name)s), bool(%(adopted)s))", line)
-        except:
-            print "I can't insert into pet, rolling back all inserts"
-            conn.rollback()
+        
+        cur.execute("INSERT INTO pet (name, age, shelter_id, breed_id, adopted) VALUES (%(Name)s, %(age)s, (select id from shelter where name = %(shelter_name)s), (select id from breed where species_id in (select id from species where name = %(species_name)s) and name = %(breed_name)s), bool(%(adopted)s))", line)
+        print(line["breed_name"])
+                
     conn.commit()
           
-    try:
-        cur.execute("""SELECT * from species""")               
-    except:
-        print "I can't SELECT from species"
-    
+
+    cur.execute("""SELECT * from species""")               
     rows = cur.fetchall()
     for row in rows:
         print "   ", row
         
-    try:
-        cur.execute("""SELECT * from shelter""")               
-    except:
-        print "I can't SELECT from shelter"
-    
+    cur.execute("""SELECT * from shelter""")               
     rows = cur.fetchall()
     for row in rows:
         print "   ", row        
 
-    try:
-        cur.execute("""SELECT * from breed""")               
-    except:
-        print "I can't SELECT from breed"
-    
+    cur.execute("""SELECT * from breed""")               
     rows = cur.fetchall()
     for row in rows:
         print "   ", row
 
-    try:  
-        cur.execute("""SELECT * from pet""")              
-    except:
-        print "I can't SELECT from pets"
-    
+    cur.execute("""SELECT * from pet""")              
     rows = cur.fetchall()
     for row in rows:
         print "   ", row
-
-        
+    
 if __name__ == "__main__":
     dictlist = []
     with open("pets.csv") as f:
