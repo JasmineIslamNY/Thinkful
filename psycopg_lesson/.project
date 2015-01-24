@@ -14,4 +14,10 @@
 	<natures>
 		<nature>org.python.pydev.pythonNature</nature>
 	</natures>
+	<variableList>
+		<variable>
+			<name>psycopg2</name>
+			<value>file:/usr/local/bin</value>
+		</variable>
+	</variableList>
 </projectDescription>

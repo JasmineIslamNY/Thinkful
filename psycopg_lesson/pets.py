@@ -1,6 +1,5 @@
 import csv
 import psycopg2
-import sys
  
 def csv_to_dictionary(csv_file):
     """ Convert csv file to dictionary"""
