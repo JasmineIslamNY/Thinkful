@@ -20,9 +20,9 @@ def make_upper(word):
     return word
 
 def empty_to_none(word):
-  if word == "":
-    word = None
-  return word
+    if word == "":
+        word = None
+    return word
 
 def clean_up_dictlist(listtoclean):
     for line in listtoclean:
@@ -52,9 +52,6 @@ def print_dictionary(dictlist):
         print(line["species_name"]),
         print(line["shelter_name"]),
         print(line["adopted"])      
-     
-def update_db():
-    pass     
  
 def load_db(payload):
     payload = tuple(payload)
@@ -69,7 +66,7 @@ def load_db(payload):
     for line in payload:
         try:
             cur.execute("SELECT * FROM species WHERE name = %(species_name)s", line)
-			print "Species found"
+            print "Species found"
         except:
             print "No record found, trying to insert"
             try:
@@ -77,9 +74,26 @@ def load_db(payload):
             except:
                 print "Could not insert, rolling back"             
                 conn.rollback()
-				conn.close()
+                conn.close()
                 sys.exit(0)
     conn.commit()    
+    
+    for line in payload:
+        try:
+            cur.execute("SELECT * FROM shelter WHERE name = %(shelter_name)s", line)
+            print "Shelter found"
+        except:
+            print "No record found, trying to insert"
+            try:
+                cur.execute("INSERT INTO shelter (name) VALUES %(shelter_name)s", line) 
+            except:
+                print "Could not insert, rolling back"             
+                conn.rollback()
+                conn.close()
+                sys.exit(0)
+    conn.commit()       
+    
+    
     
     for line in payload:
         try:
@@ -92,7 +106,7 @@ def load_db(payload):
             except:
                 print "Could not insert, rolling back"             
                 conn.rollback()
-				conn.close()
+                conn.close()
                 sys.exit(0)
     conn.commit()       
     
@@ -105,16 +119,25 @@ def load_db(payload):
     conn.commit()
           
     try:
-        cur.execute("""SELECT * from species""")   			
+        cur.execute("""SELECT * from species""")               
     except:
         print "I can't SELECT from species"
     
     rows = cur.fetchall()
     for row in rows:
         print "   ", row
+        
+    try:
+        cur.execute("""SELECT * from shelter""")               
+    except:
+        print "I can't SELECT from shelter"
+    
+    rows = cur.fetchall()
+    for row in rows:
+        print "   ", row        
 
-    try: 
-		cur.execute("""SELECT * from breed""")   			
+    try:
+        cur.execute("""SELECT * from breed""")               
     except:
         print "I can't SELECT from breed"
     
@@ -123,7 +146,7 @@ def load_db(payload):
         print "   ", row
 
     try:  
-        cur.execute("""SELECT * from pet""")  			
+        cur.execute("""SELECT * from pet""")              
     except:
         print "I can't SELECT from pets"
     
@@ -131,7 +154,7 @@ def load_db(payload):
     for row in rows:
         print "   ", row
 
-		
+        
 if __name__ == "__main__":
     dictlist = []
     with open("pets.csv") as f:
@@ -141,4 +164,3 @@ if __name__ == "__main__":
     dictlist = clean_up_dictlist(dictlist)
     print_dictionary(dictlist)
     load_db(dictlist)
-    update_db()
