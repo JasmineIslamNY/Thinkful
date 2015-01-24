@@ -59,52 +59,55 @@ def load_db(payload):
     cur = conn.cursor()
     
     for line in payload:
+        if line["species_name"] == None:
+            print(line["species_name"])
+            continue
         try:
-            cur.execute("SELECT * FROM species WHERE name = %(species_name)s", line)
-            print "Species found"
+            cur.execute("""INSERT INTO species (name) SELECT %(species_name)s WHERE NOT EXISTS (SELECT 1 FROM species WHERE name = %(species_name)s)""", line)
+            print(line["species_name"])
         except:
-            print "No record found, trying to insert"
-            try:
-                cur.execute("INSERT INTO species (name) VALUES (%(species_name)s)", line) 
-            except:
-                print "Could not insert, rolling back"             
-                conn.rollback()
-                conn.close()
-                sys.exit(0)
+            print(line["species_name"])
+            print "No record found, and had an issue inserting"
+            conn.rollback()
+            conn.close()
+            sys.exit(0)
     conn.commit()    
     
     for line in payload:
+        if line["shelter_name"] == None:
+            print(line["shelter_name"])
+            continue
         try:
-            cur.execute("SELECT * FROM shelter WHERE name = %(shelter_name)s", line)
-            print "Shelter found"
+            cur.execute("INSERT INTO shelter (name) SELECT %(shelter_name)s WHERE NOT EXISTS (SELECT 1 FROM shelter WHERE name = %(shelter_name)s)", line)
+            print(line["shelter_name"])
         except:
-            print "No record found, trying to insert"
-            try:
-                cur.execute("INSERT INTO shelter (name) VALUES (%(shelter_name)s)", line) 
-            except:
-                print "Could not insert, rolling back"             
-                conn.rollback()
-                conn.close()
-                sys.exit(0)
+            print(line["shelter_name"])
+            print "No record found, and had an issue inserting"
+            conn.rollback()
+            conn.close()
+            sys.exit(0)
     conn.commit()       
     
     
     for line in payload:
+        if line["breed_name"] == None:
+            print(line["breed_name"])
+            continue
         try:
-            cur.execute("SELECT * FROM breed WHERE name = %(breed_name)s and species_id in (SELECT id FROM species WHERE name = %(species_name)s)", line)
-            print "Breed found"
+            cur.execute("INSERT INTO breed (name, species_id) SELECT %(breed_name)s, (SELECT id FROM species WHERE name = %(species_name)s) WHERE NOT EXISTS (SELECT 1 FROM breed WHERE name = %(breed_name)s and species_id in (SELECT id FROM species WHERE name = %(species_name)s))", line)
+            print(line["breed_name"])
         except:
-            print "No record found, trying to insert"
-            try:
-                cur.execute("INSERT INTO breed (name, species_id) VALUES (%(breed_name)s, (SELECT id FROM species WHERE name = %(species_name)s))", line) 
-            except:
-                print "Could not insert, rolling back"             
-                conn.rollback()
-                conn.close()
-                sys.exit(0)
+            print(line["breed_name"])
+            print "No record found, and had an issue inserting"
+            conn.rollback()
+            conn.close()
+            sys.exit(0)
     conn.commit()       
     
     for line in payload:
+        if line["breed_name"] == None:
+            print(line["breed_name"])
+            continue
         try:
             cur.execute("INSERT INTO pet (name, age, shelter_id, breed_id, adopted) VALUES (%(Name)s, %(age)s, (select id from shelter where name = %(shelter_name)s), (select id from breed where species_id in (select id from species where name = %(species_name)s) and name = %(breed_name)s), bool(%(adopted)s))", line)
         except:
