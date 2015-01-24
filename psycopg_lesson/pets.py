@@ -26,16 +26,17 @@ def empty_to_none(word):
 
 def clean_up_dictlist(listtoclean):
     """ This method cleans up the csv file for db entry, it: 
-        removes empty spaces, 
-        capitalizes the first letter of each word, 
+        removes empty spaces - all fields, 
+        make all letter upper case - Shelter Name,
+        capitalizes the first letter of each word - Name, Breed Name, Species Name, 
         and then sets empty variables to None, which is the Python null """
     for line in listtoclean:
         line["Name"] = empty_to_none(make_into_title(remove_whitespace(line["Name"])))
         line["breed_name"] = empty_to_none(make_into_title(remove_whitespace(line["breed_name"])))
         line["species_name"] = empty_to_none(make_into_title(remove_whitespace(line["species_name"])))
-        line["shelter_name"] = empty_to_none(make_into_title(remove_whitespace(line["shelter_name"])))
-        line["age"] = empty_to_none(make_into_title(remove_whitespace(line["age"])))
-        line["adopted"] = empty_to_none(make_into_title(remove_whitespace(line["adopted"])))                                        
+        line["shelter_name"] = empty_to_none(make_upper(remove_whitespace(line["shelter_name"])))
+        line["age"] = empty_to_none(remove_whitespace(line["age"]))
+        line["adopted"] = empty_to_none(remove_whitespace(line["adopted"]))                                     
     return listtoclean
      
 def print_dictionary(dictlist):
@@ -51,7 +52,7 @@ def load_db(payload):
     payload = tuple(payload)
     
     try:
-        conn=psycopg2.connect("dbname='pets' user='action' password='731Lexington'")
+        conn=psycopg2.connect("dbname='pets' user='postgres' password='731Lexington'")
         print "I connected"
     except:
         print "I am unable to connect to the database."
@@ -86,7 +87,6 @@ def load_db(payload):
                 conn.close()
                 sys.exit(0)
     conn.commit()       
-    
     
     
     for line in payload:
