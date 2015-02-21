@@ -4,3 +4,6 @@ tweetful/access.json
 tweetful/authorization.pyc
 tweetful/authorization.pyc
 **/.ignore*
+SQLAlchemy1/.project
+
+SQLAlchemy1/.pydevproject
