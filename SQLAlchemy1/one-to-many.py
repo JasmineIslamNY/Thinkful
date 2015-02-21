@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Boolean
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, backref
 
@@ -92,7 +92,7 @@ class Pet(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, nullable=False)
     age = Column(Integer)
-    adopted = Column(Integer, default=0)
+    adopted = Column(Boolean, default=False)
     breed_id = Column(Integer, ForeignKey('breed.id'), nullable=False ) 
     shelter_id = Column(Integer, ForeignKey('shelter.id') ) 
           
@@ -242,8 +242,8 @@ if __name__ == "__main__":
     # has no shelter.
     
     log.info("Creating two pets")
-    thomas = Pet(name = "Thomas", age = 5, adopted = 0, breed = golden, shelter = nycpo)
-    sue = Pet(name = "Sue", age = 8, adopted = 1, breed = poodle)
+    thomas = Pet(name = "Thomas", age = 5, adopted = False, breed = golden, shelter = nycpo)
+    sue = Pet(name = "Sue", age = 8, adopted = True, breed = poodle)
     log.info("Adding pets to session and committing.")    
     db_session.add_all( [thomas, sue] )
     db_session.commit() 
