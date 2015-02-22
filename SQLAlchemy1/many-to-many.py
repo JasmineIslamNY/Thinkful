@@ -264,19 +264,24 @@ if __name__ == "__main__":
         print "Id: {}, Name: {}, pets: {}, traits: {}".format(breed.id, breed.name, \
             breed.pets, breed.traits)
 
-    goldie.breed.traits = [fast]
-    spot.breed.traits = [fast]
+    goldie.breed.traits.append(fast)
+    goldie.breed.traits.append(gold)
+    goldie.breed.traits.append(longhair)
+    spot.breed.traits.append(fast)
+    spot.breed.traits.append(spotted)
+    spot.breed.traits.append(firedog)
+    spot.breed.traits.append(shorthair)    
     
     log.info("Updating traits for breeds")
     db_session.add_all([goldie, spot])
-    db_session.commit()
-    
+    db_session.commit()   
     
     log.info("After adding traits to breed")
-    breeds = db_session.query(BreedTrait).all()
+    breeds = db_session.query(Breed).all()
     for breed in breeds:
-        print "Id: {}, Name: {}".format(breedtrait.id, breedtrait.name)
-    
+        print "Id: {}, Name: {}, pets: {}, traits: {}".format(breed.id, breed.name, \
+            breed.pets, breed.traits)
+
     
     #################################################
     
