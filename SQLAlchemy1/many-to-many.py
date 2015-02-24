@@ -282,6 +282,10 @@ if __name__ == "__main__":
         print "Id: {}, Name: {}, pets: {}, traits: {}".format(breed.id, breed.name, \
             breed.pets, breed.traits)
 
+    log.info("After adding traits to breed")
+    breedtraits = db_session.query(BreedTrait).all()
+    for breedtrait in breedtraits:
+        print "Id: {}, Name: {}".format(breedtrait.id, breedtrait.name)
     
     #################################################
     
