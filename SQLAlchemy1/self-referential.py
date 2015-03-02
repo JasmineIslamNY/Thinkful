@@ -160,6 +160,7 @@ class Pet(Base):
     #parent_id = Column(Integer, ForeignKey(id), nullable=True)
     
     #parent = relationship('Pet', remote_side=id, backref="children")
+    # tried using _parent with the @parent.setter below
     parent = relationship("Pet",
                         secondary=pet_parent_to_child,
                         primaryjoin=id==pet_parent_to_child.c.child_id,
@@ -169,7 +170,16 @@ class Pet(Base):
     # no foreign key here, it's in the many-to-many table        
     # mapped relationship, pet_person_table must already be in scope!
     people = relationship('Person', secondary=pet_person_table, backref='pets')
-
+    """
+    @parent.setter 
+    def parent(self, value):
+        #check to see if two parents already exist
+        if count(self.parent) == 2:
+            raise Exception("Two parents already exist")
+        else:
+            self._parent = value    
+    """
+    
     @property
     def nicknames(self):
         """returns pet nickname"""
