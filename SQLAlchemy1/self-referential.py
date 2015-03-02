@@ -139,7 +139,11 @@ class PetPersonAssociation(Base):
     def __repr__(self):
         return "PetPersonAssociation( {} : {} )".format(self.pet.name, 
             self.person.full_name)
-
+        
+pet_parent_to_child = Table("pet_parent_to_child", Base.metadata,
+    Column("parent_id", Integer, ForeignKey("pet.id"), primary_key=True),
+    Column("child_id", Integer, ForeignKey("pet.id"), primary_key=True)
+)
 
 class Pet(Base):
     """
@@ -153,10 +157,14 @@ class Pet(Base):
     adopted = Column(Boolean)
     breed_id = Column(Integer, ForeignKey('breed.id'), nullable=False ) 
     shelter_id = Column(Integer, ForeignKey('shelter.id') ) 
-    parent_id = Column(Integer, ForeignKey(id), nullable=True)
+    #parent_id = Column(Integer, ForeignKey(id), nullable=True)
     
-    parent = relationship('Pet', remote_side=id, backref="children")
-    
+    #parent = relationship('Pet', remote_side=id, backref="children")
+    parent = relationship("Pet",
+                        secondary=pet_parent_to_child,
+                        primaryjoin=id==pet_parent_to_child.c.child_id,
+                        secondaryjoin=id==pet_parent_to_child.c.parent_id,
+                        backref="children")
     
     # no foreign key here, it's in the many-to-many table        
     # mapped relationship, pet_person_table must already be in scope!
@@ -281,17 +289,25 @@ if __name__ == "__main__":
                 age=9,
                 adopted = False,
                 shelter = Shelter(name="Happy Animal Place"),
-                breed = Breed(name="Golden Retriever", species=dog),
-                parent = spot
+                breed = Breed(name="Golden Retriever", species=dog)
+                #parent = spot
                 )
 
     ginnie = Pet(name="Ginnie",
                 age=1,
                 adopted = False,
-                shelter = Shelter(name="Happy Animal Place"),
-                breed = Breed(name="Golden Retriever", species=dog),
-                parent = goldie
+                shelter = goldie.shelter,
+                breed = goldie.breed,
+                parent = [goldie, spot]
                 ) 
+    
+    blinkie = Pet(name="Blinkie",
+                age=1,
+                adopted = False,
+                shelter = goldie.shelter,
+                breed = Breed(name="Golden Dalmatian", species=dog),
+                parent = [goldie, spot]
+                )     
 
 
     log.info("Adding Goldie and Spot to session and committing changes to DB")
