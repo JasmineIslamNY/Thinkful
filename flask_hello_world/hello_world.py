@@ -1,6 +1,11 @@
+import os
 from flask import Flask
 
 app = Flask(__name__)
+
+@app.route("/")
+def hello_default():
+        return "Hello World Default Page - add /hello or /hello/[YOUR_NAME] for other pages!"
 
 @app.route("/hello")
 def hello_world():
