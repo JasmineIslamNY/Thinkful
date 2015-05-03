@@ -250,7 +250,7 @@ if __name__ == "__main__":
 
     log.info("Creating person object for Sue")
     sue = Person(first_name="Sue",
-                last_name="Johson",
+                last_name="Johnson",
                 age=54,
                 phone = '555 243 9988')
 
@@ -277,9 +277,16 @@ if __name__ == "__main__":
                 age=9,
                 adopted = False,
                 shelter = Shelter(name="Happy Animal Place"),
-                breed = Breed(name="Golden Retriever", species=dog)
+                breed = Breed(name="Golden Retriever", species=dog),
+                people = []
                 ) 
 
+    #goldie.people.extend(spot.people)   
+    #goldie.people.append(spot.people)
+    """
+    extend rather than append would concatenate spot.people folks to the people that goldie already has - so... if goldie already had Mike as a pet parent, it would add tom and sue as pet parents.  
+    append adds the list of persons that belong to spot.peole to goldie.  If goldie already had Mike, this would add another element which was a list of sue and tom.  So it would be like [mike, [sue, tom]] rather than [mike, sue, tom] that extend would create
+    """
     log.info("Adding Goldie and Spot to session and committing changes to DB")
     db_session.add_all([spot, goldie])
     db_session.commit()
@@ -314,6 +321,7 @@ if __name__ == "__main__":
     spot.breed.traits.append(firedog)
     spot.breed.traits.append(shorthair)    
     goldie.person_associations.append(PetPersonAssociation (person=tom, nickname = "Bubbles"))
+    log.info(" Print {}".format(type(spot.people)))
     #owner = spot.people  #also tried owner.id without success
     #spot.person_associations.append(PetPersonAssociation (person=owner, nickname = "Blacky"))
     spot.person_associations.append(PetPersonAssociation (person=sue, nickname = "Blacky"))

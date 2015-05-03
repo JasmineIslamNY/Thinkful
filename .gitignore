@@ -7,3 +7,5 @@ tweetful/authorization.pyc
 SQLAlchemy1/.project
 
 SQLAlchemy1/.pydevproject
+env/
+*\env
