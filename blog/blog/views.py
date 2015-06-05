@@ -59,13 +59,10 @@ def edit_post_get(postid):
     return render_template("edit_post.html", posts=posts)
 
 
-@app.route("/post/<int:postid>/edit", methods=["PUT"])
-def edit_post_put():
-    post = Post(
-        id=request.form["id"],
-        title=request.form["title"],
-        content=mistune.markdown(request.form["content"]),
-    )
-    session.add(post)
+@app.route("/post/<int:postid>/edit", methods=["POST"])
+def edit_post(postid):
+    session.query(Post).filter(Post.id == postid).\
+    update({Post.title: request.form["title"], Post.content: mistune.markdown(request.form["content"])}, synchronize_session=False)
+    
     session.commit()
     return redirect(url_for("posts"))
