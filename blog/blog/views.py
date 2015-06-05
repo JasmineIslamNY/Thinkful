@@ -47,3 +47,25 @@ def add_post_post():
     session.add(post)
     session.commit()
     return redirect(url_for("posts"))
+
+@app.route("/post/<int:postid>", methods=["GET"])
+def single_post_get(postid):
+    posts = session.query(Post).filter(Post.id == postid)
+    return render_template("single_post.html", posts=posts)
+
+@app.route("/post/<int:postid>/edit", methods=["GET"])
+def edit_post_get(postid):
+    posts = session.query(Post).filter(Post.id == postid)
+    return render_template("edit_post.html", posts=posts)
+
+
+@app.route("/post/<int:postid>/edit", methods=["PUT"])
+def edit_post_put():
+    post = Post(
+        id=request.form["id"],
+        title=request.form["title"],
+        content=mistune.markdown(request.form["content"]),
+    )
+    session.add(post)
+    session.commit()
+    return redirect(url_for("posts"))

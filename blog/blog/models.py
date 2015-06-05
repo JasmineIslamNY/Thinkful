@@ -1,6 +1,7 @@
 import datetime
 
 from sqlalchemy import Column, Integer, String, Sequence, Text, DateTime
+from sqlalchemy import update
 
 from database import Base, engine
 
