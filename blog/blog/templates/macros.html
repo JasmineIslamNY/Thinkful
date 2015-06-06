@@ -12,6 +12,7 @@
             <a href="/post/{{ post.id }}"> {{ post.title }} </a>
         </h1>
         {{ post.content | safe }}
+        <p><i> Created by: {{ post.author.name }} </i> </p>
     </div>
 </div>
 {% endmacro %}
