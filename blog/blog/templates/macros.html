@@ -13,6 +13,7 @@
         </h1>
         {{ post.content | safe }}
         <p><i> Created by: {{ post.author.name }} </i> </p>
+        <p><i><a href="/post/{{ post.id }}/edit"> Edit</a> <a href="/post/{{ post.id }}/delete"> Delete </a> </i></p>
     </div>
 </div>
 {% endmacro %}
