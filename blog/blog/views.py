@@ -58,7 +58,6 @@ def edit_post_get(postid):
     posts = session.query(Post).filter(Post.id == postid)
     return render_template("edit_post.html", posts=posts)
 
-
 @app.route("/post/<int:postid>/edit", methods=["POST"])
 def edit_post(postid):
     session.query(Post).filter(Post.id == postid).\
@@ -66,3 +65,17 @@ def edit_post(postid):
     
     session.commit()
     return redirect(url_for("posts"))
+
+@app.route("/post/<int:postid>/delete", methods=["GET"])
+def delete_post_get(postid):
+    posts = session.query(Post).filter(Post.id == postid)
+    return render_template("delete_post.html", posts=posts)
+
+@app.route("/post/<int:postid>/delete", methods=["POST"])
+def delete_post(postid):
+    session.query(Post).filter(Post.id == postid).\
+    delete(synchronize_session=False)
+    
+    session.commit()
+    return redirect(url_for("posts"))
+

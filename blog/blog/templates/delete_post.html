@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>
+    Delete Post ID {{ posts[0].id }}
+</h1>
+
+
+<form role="form" method="POST">
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <textarea class="form-control" id="title" name="title" rows="1" readonly> {{ posts[0].title }} </textarea>
+    </div>
+    <div class="form-group">
+        <label for="content">Content</label>
+        <textarea class="form-control" id="content" name="content" rows="5" readonly> {{ posts[0].content }} </textarea>
+    </div>
+    <h3>Are you sure you want to delete the post?</h3>
+    <button type="submit" class="btn btn-default">Delete</button>
+    <button type="button" class="btn btn-default" onclick="location.href='/'">Cancel</button>
+</form>
+
+{% endblock %}
+
+
