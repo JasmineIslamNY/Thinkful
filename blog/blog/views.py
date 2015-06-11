@@ -1,5 +1,4 @@
 from flask import render_template
-
 from blog import app
 from database import session
 from models import Post
@@ -9,7 +8,7 @@ from werkzeug.security import check_password_hash
 from models import User
 from flask.ext.login import login_required
 from flask.ext.login import current_user
-
+from flask.ext.login import logout_user
 import mistune
 from flask import request, redirect, url_for
 
@@ -103,3 +102,7 @@ def login_post():
     login_user(user)
     return redirect(request.args.get('next') or url_for("posts"))
 
+@app.route("/logout", methods=["GET"])
+def logout_get():
+    logout_user()
+    return redirect(url_for("posts"))

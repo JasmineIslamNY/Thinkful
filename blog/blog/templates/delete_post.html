@@ -16,9 +16,16 @@
         <label for="content">Content</label>
         <textarea class="form-control" id="content" name="content" rows="5" readonly> {{ posts[0].content }} </textarea>
     </div>
-    <h3>Are you sure you want to delete the post?</h3>
-    <button type="submit" class="btn btn-default">Delete</button>
-    <button type="button" class="btn btn-default" onclick="location.href='/'">Cancel</button>
+    
+    {% if current_user.name == posts[0].author.name %}
+        <h3>Are you sure you want to delete the post?</h3>
+        <button type="submit" class="btn btn-default">Delete</button>
+        <button type="button" class="btn btn-default" onclick="location.href='/'">Cancel</button>
+    {% else %}
+         <h3>You can only delete a post you created!</h3>
+        <button type="button" class="btn btn-default" onclick="location.href='/'">Cancel</button>
+    {% endif %}
+    
 </form>
 
 {% endblock %}
