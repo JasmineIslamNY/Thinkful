@@ -36,7 +36,7 @@
                         <a class="navbar-brand">Logged in as: {{current_user.name}}</a>
                         <a class="navbar-brand" href="{{ url_for('logout_get') }}">Log Out</a>
                     {% else %}
-                        <a class="navbar-brand" href="{{ url_for('login_get') }}">Log In</a>
+                        <a class="navbar-brand" style="float: right" href="{{ url_for('login_get') }}">Log In</a>
                     {% endif %}
                 </div>
                 <div class="collapse navbar-collapse">
