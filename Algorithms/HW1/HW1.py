@@ -13,18 +13,21 @@ def print_array(array):
 		print array[i]
 
 def array_sort(array):
-	follower = 1
-	counter = 1 #what is this for?
+	currIndex = 1
 	temp = 0
 	
-	while (follower != len(array)) & (len(array) > 0):
-		for i in range(follower):
-			if array[i] > array[follower]:
-				temp = array[i]
-				array[i] = array[follower]
+	if (len(array) == 1) | (len(array) == 0):
+		return array
+
+	while currIndex < len(array):
+		follower = currIndex
+		while follower > 0:
+			if array[follower - 1] > array[follower]:
+				temp = array[follower - 1]
+				array[follower - 1] = array[follower]
 				array[follower] = temp
-		follower += 1
-			
+			follower -= 1
+		currIndex += 1		
 	return array
 
 
@@ -33,17 +36,12 @@ if __name__ == "__main__":
 	#create array (list) of specified size
 	array = create_randomint_array(5, 100)
 
-	#print the array
 	print("Array before the sort")
 	print_array(array)
 
 	#sort the array
-	array_sorted = array_sort(array)
+	array_sort(array)
 
-	#print the array after sort
-	print("Array after the sort - array")
+	print("Array after the sort")
 	print_array(array)
-	print("Array after the sort - array_sorted")
-	print_array(array_sorted)
-
 
