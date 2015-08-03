@@ -34,6 +34,8 @@ class Array(object):
 					temp = array[follower - 1]
 					array[follower - 1] = array[follower]
 					array[follower] = temp
+				else:
+					break
 				follower -= 1
 			currIndex += 1		
 		return array

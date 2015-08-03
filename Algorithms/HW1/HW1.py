@@ -5,8 +5,8 @@ def make_parser():
     """ Construct the command line parser """
     description = "Create a specified sized list and fill with random numbers from 0 to specified limit"
     parser = argparse.ArgumentParser(description = description)
-    parser.add_argument("ListSize", help="The size of the list you want to create, default is 5")
-    parser.add_argument("UpperLimit", help="Enter the upper limit of the random numbers, default is 100")
+    parser.add_argument("-ListSize", nargs='?', default = 5, help="The size of the list you want to create, default is 5")
+    parser.add_argument("-UpperLimit", nargs='?', default = 100, help="Enter the upper limit of the random numbers, default is 100")
     return parser
 
 def main():
