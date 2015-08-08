@@ -42,18 +42,19 @@ class Array(object):
 
 	@staticmethod
 	def array_sort_merge(array, low, high):
-		if (len(array) == 1)| (len(array) == 0):
+		if (high - low <= 1):
 			return array
 
 		mid = ((high - low)/2) + low
+		"""
 		print ("Low is {}".format(low))
 		print ("Mid is {}".format(mid))
 		print ("High is {}".format(high))
 		print ("Array is:")
 		Array.print_array(array)
-		
+		print ("Array length is {}".format(len(array)))
+		"""
 
-		
 		Array.array_sort_merge(array, low, mid)
 		Array.array_sort_merge(array, mid+1, high)
 		Array.array_merge(array, low, mid, high)

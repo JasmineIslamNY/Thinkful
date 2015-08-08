@@ -29,7 +29,7 @@ def main():
 	Array.print_array(myArray)
 
 	#sort the array
-	Array.array_sort_merge(myArray, 0, list_size)
+	Array.array_sort_merge(myArray, 0, list_size-1)
 
 	print("Array after the sort")
 	Array.print_array(myArray)
