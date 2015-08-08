@@ -42,7 +42,7 @@ class Array(object):
 
 	@staticmethod
 	def array_sort_merge(array, low, high):
-		if (high - low <= 1):
+		if (high - low == 0):
 			return array
 
 		mid = ((high - low)/2) + low
