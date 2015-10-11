@@ -9,9 +9,9 @@ class BST(object):
 
 	def addToTree(self, value):
 		tree = BST(value)
+		self.count += 1
 		if self.root == None:
 			self.root = tree
-			self.count += 1
 		else:
 			self.addTreeToTree(self.root, tree)
 		
@@ -19,13 +19,11 @@ class BST(object):
 		if child.payload <= parent.payload:
 			if parent.leftTree == None:
 				parent.leftTree = child
-				self.count += 1
 			else:
 				self.addTreeToTree(parent.leftTree, child)
 		else:
 			if parent.rightTree == None:
 				parent.rightTree = child
-				self.count += 1
 			else:
 				self.addTreeToTree(parent.rightTree, child)
 
@@ -63,7 +61,7 @@ class BST(object):
 					if self.root.rightTree != None:	
 						self.addTreeToTree(self.root.rightTree, self.root.leftTree)
 						self.root = self.root.rightTree
-						self.count -= 1 						
+						self.count -= 1	
 					else:
 						self.root = self.root.leftTree
 						self.count -= 1
