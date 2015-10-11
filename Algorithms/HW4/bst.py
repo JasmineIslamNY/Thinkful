@@ -52,19 +52,75 @@ class BinarySearchTree(object):
 			self.findInChildTree(node.leftNode, value)
 		else:
 			self.findInChildTree(node.rightNode, value)
-	"""			
+			
 	def deleteFromTree(self, value):
 		if self.count == 0:
 			return "Empty Tree"
 		else:
 			if self.root.payload == value:
-				return 1
-			elif value < selfroot.payload:
-				self.findInChildTree(self.root.leftNode, value)
+				if self.root.leftNode != None:
+					if self.root.rightNode != None:	
+						self.addNodeToTree(self.root.rightNode, self.root.leftNode)
+				else:
+					self.root = self.root.leftNode
+				if self.root.rightNode != None:
+					self.root = self.root.rightNode  				
+			elif value < self.root.payload:
+				self.deleteFromChildTree(self.root, self.root.leftNode, value)
 			else:
-				self.findInChildTree(self.root.rightNode, value)				
+				self.deleteFromChildTree(self.root, self.root.rightNode, value)
+
+	def deleteFromChildTree(self, parentTree, treeToDelete, value):
+		if treeToDelete == None:
+			return -1
+		elif treeToDelete.payload == value:
+			self.deleteTree(parentTree, treeToDelete)
+		elif value < treeToDelete.payload:
+			self.deleteFromChildTree(treeToDelete, treeToDelete.leftNode, value)
+		else:
+			self.deleteFromChildTree(treeToDelete, treeToDelete.rightNode, value)				
+
+	def deleteTree(self, parentTree, treeToDelete):
+		holdTree = None
+		if treeToDelete.leftNode != None:
+				if treeToDelete.rightNode != None:	
+					self.addNodeToTree(treeToDelete.rightNode, treeToDelete.leftNode)
+				else:
+					holdTree = treeToDelete.leftNode
+		if treeToDelete.rightNode != None:
+				holdTree = treeToDelete.rightNode  
+		treeToDelete.leftNode = None
+		treeToDelete.rightNode = None
+		# had to do this rather than just assigning holdTree to treeToDelete
+		if treeToDelete.payload < parentTree.payload:
+			parentTree.leftNode = holdTree
+		else:
+			parentTree.rightNode = holdTree
+		#treeToDelete = holdTree
+
+
 
 	"""
+	def deleteTree(self, treeToDelete):
+		holdTree = None
+		if treeToDelete.leftNode != None:
+				if treeToDelete.rightNode != None:	
+					self.addNodeToTree(treeToDelete.rightNode, treeToDelete.leftNode)
+				else:
+					holdTree = treeToDelete.leftNode
+		if treeToDelete.rightNode != None:
+				holdTree = treeToDelete.rightNode  
+		print (holdTree.payload)
+		print (treeToDelete.payload)
+		treeToDelete.leftNode = None
+		treeToDelete.rightNode = None
+		treeToDelete = holdTree
+		print (holdTree.payload)
+		print (treeToDelete.payload)
+
+	"""
+
+	
 	def display(self):					
 		if (self.count == 0):
 			print("Empty Tree")
@@ -119,6 +175,8 @@ if __name__ == "__main__":
 	t.addToTree(5)
 	t.addToTree(34)
 	t.addToTree(4)
+	t.addToTree(34)
+	t.addToTree(74)
 	t.display()
 	print("Finding Value 7")
 
@@ -137,9 +195,18 @@ if __name__ == "__main__":
 	print("Finding Minimum")
 	print("The min is {}".format(t.findMin().payload))
 	
-	"""
 	t.display()
 	print("Removing from Tree 6")	
 	t.deleteFromTree(6)
-	"""
+	t.display()
+	print("Removing from Tree 1")	
+	t.deleteFromTree(1)
+	t.display()
+	print("Removing from Tree 34")	
+	t.deleteFromTree(34)
+	t.display()
+	print("Removing from Tree 7")	
+	t.deleteFromTree(7)
+	t.display()
+	
 
