@@ -27,7 +27,7 @@ class BST(object):
 	def balanceTree(self, side):
 		if side == 'left':
 			print("Rebalancing left")
-			if self.findDepth(self.root.leftTree.rightTree) > (self.leftDepth - 1):
+			if self.findDepth(self.root.leftTree.rightTree) >= (self.leftDepth - 1):
 				newRight = self.root
 				newLeft = self.root.leftTree
 				newRoot = self.root.leftTree.rightTree
@@ -37,7 +37,9 @@ class BST(object):
 				newRoot.rightTree = newRight
 				self.root = newRoot
 				print("LeftDepth before: {}".format(self.leftDepth))	
-				self.leftDepth -= 1
+				self.leftDepth = self.findDepth (self.root.leftTree)
+				self.rightDepth = self.findDepth (self.root.rightTree)
+
 				print("LeftDepth after: {}".format(self.leftDepth))
 			else:
 				oldRoot = self.root
@@ -46,11 +48,12 @@ class BST(object):
 				newRoot.rightTree = oldRoot
 				self.root = newRoot
 				print("LeftDepth before: {}".format(self.leftDepth))	
-				self.leftDepth -= 1
+				self.leftDepth = self.findDepth (self.root.leftTree)
+				self.rightDepth = self.findDepth (self.root.rightTree)
 				print("LeftDepth after: {}".format(self.leftDepth))
 		else:
 			print("Rebalancing right")
-			if self.findDepth(self.root.rightTree.leftTree) > (self.rightDepth - 1):
+			if self.findDepth(self.root.rightTree.leftTree) >= (self.rightDepth - 1):
 				newLeft = self.root
 				newRight = self.root.rightTree
 				newRoot = self.root.rightTree.leftTree
@@ -60,7 +63,8 @@ class BST(object):
 				newRoot.rightTree = newRight
 				self.root = newRoot
 				print("RightDepth before: {}".format(self.rightDepth))	
-				self.rightDepth -= 1
+				self.leftDepth = self.findDepth (self.root.leftTree)
+				self.rightDepth = self.findDepth (self.root.rightTree)
 				print("RightDepth after: {}".format(self.rightDepth))
 			else:
 				oldRoot = self.root
@@ -69,7 +73,8 @@ class BST(object):
 				newRoot.leftTree = oldRoot
 				self.root = newRoot
 				print("RightDepth before: {}".format(self.rightDepth))
-				self.rightDepth -= 1
+				self.leftDepth = self.findDepth (self.root.leftTree)
+				self.rightDepth = self.findDepth (self.root.rightTree)
 				print("RightDepth after: {}".format(self.rightDepth))
 
 	def findDepth(self, tree):
@@ -313,6 +318,7 @@ if __name__ == "__main__":
 	t.addToTree(74)
 	t.addToTree(31)
 	t.addToTree(61)
+	t.addToTree(29)	
 
 	print("Print in pre-order")
 	t.preorder()
