@@ -24,6 +24,37 @@ class BST(object):
 			if depth > self.leftDepth:
 				self.leftDepth = depth
 	
+	def balanceTree(self, side):
+		if side == 'left':
+			print("Rebalancing left")
+			#if self.findDepth(self.root.leftNode.rightNode) >= self.leftDepth:
+			#	pass # Need to figure this one out   ??????????????????????????????????????????
+			#else:
+			oldRoot = self.root
+			newRoot = self.root.leftTree
+			oldRoot.leftTree = newRoot.rightTree
+			newRoot.rightTree = oldRoot
+			self.root = newRoot
+			print("LeftDepth before: {}".format(self.leftDepth))	
+			self.leftDepth -= 1
+			print("LeftDepth after: {}".format(self.leftDepth))
+		else:
+			print("Rebalancing right")
+			#if self.findDepth(self.root.rightNode.leftNode) >= self.rightDepth:
+			#	pass # Need to figure this one out   ??????????????????????????????????????????
+			#else:
+			oldRoot = self.root
+			newRoot = self.root.rightTree
+			oldRoot.rightTree = newRoot.leftTree
+			newRoot.leftTree = oldRoot
+			self.root = newRoot
+			print("RightDepth before: {}".format(self.rightDepth))
+			self.rightDepth -= 1
+			print("RightDepth before: {}".format(self.rightDepth))
+
+	def findDepth(tree):
+		return 0
+
 	def addToTree(self, value):
 		tree = BST(value)
 		self.count += 1
@@ -42,6 +73,9 @@ class BST(object):
 				self.updateDepth(side, depth)
 				#print("Added at depth: {}".format(depth))
 				print("Is the tree balanced: {}".format(self.isBalanced()))
+				balanced = self.isBalanced()
+				if balanced == 'No':
+					self.balanceTree(side)
 			else:
 				depth += 1
 				if side == None:
@@ -56,6 +90,9 @@ class BST(object):
 				self.updateDepth(side, depth)
 				#print("Added at depth: {}".format(depth))
 				print("Is the tree balanced: {}".format(self.isBalanced()))
+				balanced = self.isBalanced()
+				if balanced == 'No':
+					self.balanceTree(side)
 			else:
 				depth += 1
 				if side == None:
