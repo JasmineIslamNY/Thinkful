@@ -47,19 +47,23 @@ class BST(object):
 				newRoot.rightTree = newRight
 				self.root = newRoot
 				print("LeftDepth before: {}".format(self.leftDepth))	
+				print("RightDepth before: {}".format(self.rightDepth))
 				self.leftDepth = self.findDepth (self.root.leftTree)
 				self.rightDepth = self.findDepth (self.root.rightTree)
 				print("LeftDepth after: {}".format(self.leftDepth))
+				print("RightDepth after: {}".format(self.rightDepth))
 			else:
 				oldRoot = self.root
 				newRoot = self.root.leftTree
 				oldRoot.leftTree = newRoot.rightTree
 				newRoot.rightTree = oldRoot
 				self.root = newRoot
-				print("LeftDepth before: {}".format(self.leftDepth))	
+				print("LeftDepth before: {}".format(self.leftDepth))
+				print("RightDepth before: {}".format(self.rightDepth))		
 				self.leftDepth = self.findDepth (self.root.leftTree)
 				self.rightDepth = self.findDepth (self.root.rightTree)
 				print("LeftDepth after: {}".format(self.leftDepth))
+				print("RightDepth after: {}".format(self.rightDepth))
 		else:
 			print("Rebalancing right")
 			if self.findDepth(self.root.rightTree.leftTree) >= (self.rightDepth - 1):
@@ -72,9 +76,11 @@ class BST(object):
 				newRoot.rightTree = newRight
 				self.root = newRoot
 				print("RightDepth before: {}".format(self.rightDepth))	
+				print("LeftDepth before: {}".format(self.leftDepth))
 				self.leftDepth = self.findDepth (self.root.leftTree)
 				self.rightDepth = self.findDepth (self.root.rightTree)
 				print("RightDepth after: {}".format(self.rightDepth))
+				print("LeftDepth after: {}".format(self.leftDepth))
 			else:
 				oldRoot = self.root
 				newRoot = self.root.rightTree
@@ -82,9 +88,11 @@ class BST(object):
 				newRoot.leftTree = oldRoot
 				self.root = newRoot
 				print("RightDepth before: {}".format(self.rightDepth))
+				print("LeftDepth before: {}".format(self.leftDepth))
 				self.leftDepth = self.findDepth (self.root.leftTree)
 				self.rightDepth = self.findDepth (self.root.rightTree)
 				print("RightDepth after: {}".format(self.rightDepth))
+				print("LeftDepth after: {}".format(self.leftDepth))
 
 	def findDepth(self, tree):
 		if tree == None:
@@ -331,7 +339,7 @@ if __name__ == "__main__":
 	t.addToTree(74)
 	t.addToTree(31)
 	t.addToTree(61)
-	t.addToTree(29)	
+	#t.addToTree(29)	
 
 	print("Print in pre-order")
 	t.preorder()
@@ -340,6 +348,8 @@ if __name__ == "__main__":
 	print("Print in post-order")
 	t.postorder()
 
+	print("-----------------")
+	print("Deleting the following: 5, 4")
 	t.deleteFromTree(5)
 	t.deleteFromTree(4)	
 
