@@ -16,6 +16,16 @@ class BST(object):
 		else:
 			return 'Yes'
 
+	def updateBalance(self):
+		self.leftDepth = self.findDepth(self.root.leftTree)
+		self.rightDepth = self.findDepth(self.root.rightTree)
+		balanced = self.isBalanced()
+		if balanced == 'No':
+			if self.leftDepth > self.rightDepth:
+				self.balanceTree('left')
+			else:
+				self.balanceTree('right')  
+
 	def updateDepth(self, side, depth):
 		if side == 'right':
 			if depth > self.rightDepth:
@@ -39,7 +49,6 @@ class BST(object):
 				print("LeftDepth before: {}".format(self.leftDepth))	
 				self.leftDepth = self.findDepth (self.root.leftTree)
 				self.rightDepth = self.findDepth (self.root.rightTree)
-
 				print("LeftDepth after: {}".format(self.leftDepth))
 			else:
 				oldRoot = self.root
@@ -164,12 +173,15 @@ class BST(object):
 						self.addTreeToTree(self.root.rightTree, self.root.leftTree)
 						self.root = self.root.rightTree
 						self.count -= 1	
+						self.updateBalance()
 					else:
 						self.root = self.root.leftTree
 						self.count -= 1
+						self.updateBalance()
 				else:
 					self.root = self.root.rightTree
-					self.count -= 1  				
+					self.count -= 1  
+					self.updateBalance()						
 			elif value < self.root.payload:
 				self.deleteFromChildTree(self.root, self.root.leftTree, value)
 			else:
@@ -203,6 +215,7 @@ class BST(object):
 			parentTree.rightTree = holdTree
 		#treeToDelete = holdTree
 		self.count -= 1
+		self.updateBalance()
 
 
 
@@ -307,7 +320,7 @@ class BST(object):
 if __name__ == "__main__":
 	t = BST()
 	#t.preorder()
-	print("Adding in the following order: 7, 1, 6, 5, 34, 4, 34, 74, 31, 61")
+	print("Adding in the following order: 7, 1, 6, 5, 34, 4, 34, 74, 31, 61, 29")
 	t.addToTree(7)
 	t.addToTree(1)
 	t.addToTree(6)
@@ -326,6 +339,17 @@ if __name__ == "__main__":
 	t.inorder()
 	print("Print in post-order")
 	t.postorder()
+
+	t.deleteFromTree(5)
+	t.deleteFromTree(4)	
+
+	print("Print in pre-order")
+	t.preorder()
+	print("Print in in-order")
+	t.inorder()
+	print("Print in post-order")
+	t.postorder()
+
 
 
 	"""
