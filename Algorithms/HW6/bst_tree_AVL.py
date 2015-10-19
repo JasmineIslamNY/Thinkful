@@ -33,7 +33,16 @@ class BST(object):
 		else:
 			if depth > self.leftDepth:
 				self.leftDepth = depth
-	
+
+	def findDepth(self, tree):
+		if tree == None:
+			return 0
+		elif (self.findDepth(tree.leftTree) > self.findDepth(tree.rightTree)):
+			return (1 + self.findDepth(tree.leftTree))
+		else:
+			return (1 + self.findDepth(tree.rightTree))	
+
+
 	def balanceTree(self, side):
 		if side == 'left':
 			print("Rebalancing left")
@@ -93,14 +102,6 @@ class BST(object):
 				self.rightDepth = self.findDepth (self.root.rightTree)
 				print("RightDepth after: {}".format(self.rightDepth))
 				print("LeftDepth after: {}".format(self.leftDepth))
-
-	def findDepth(self, tree):
-		if tree == None:
-			return 0
-		elif (self.findDepth(tree.leftTree) > self.findDepth(tree.rightTree)):
-			return (1 + self.findDepth(tree.leftTree))
-		else:
-			return (1 + self.findDepth(tree.rightTree))
 		
 	def addToTree(self, value):
 		tree = BST(value)
@@ -328,7 +329,7 @@ class BST(object):
 if __name__ == "__main__":
 	t = BST()
 	#t.preorder()
-	print("Adding in the following order: 7, 1, 6, 5, 34, 4, 34, 74, 31, 61, 29")
+	print("Adding in the following order: 7, 1, 6, 5, 34, 4, 34, 74, 31, 61")
 	t.addToTree(7)
 	t.addToTree(1)
 	t.addToTree(6)
