@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+
+{% block content1 %}
+	{% for diskSize in tower1 %} 
+		<div class=disk id=disk{{diskSize}}>=</div>
+	{% endfor %}
+{% endblock %}
+
+{% block content2 %}
+  	{% for diskSize in tower2 %} 
+		<div class=disk id=disk{{diskSize}}>=</div>
+	{% endfor %}
+{% endblock %}
+
+{% block content3 %}
+  	{% for diskSize in tower3 %} 
+		<div class=disk id=disk{{diskSize}}>=</div>
+	{% endfor %}
+{% endblock %}
+
+
+

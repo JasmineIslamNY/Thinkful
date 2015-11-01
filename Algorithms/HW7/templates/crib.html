@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>HTML5 Examples - Technologies: Drag'n Drop, CSS3 - © ict-Media GmbH</title>
+    <script type="text/javascript">
+
+var dragEnter, dragOver, dropIt, dragEnd;
+
+function dragStart(ev) {
+  ev.dataTransfer.effectAllowed='move'; // we want to move
+  ev.dataTransfer.setData('text', ev.target.id); // type text
+  var disk = ev.target.id; // what we move
+  var canDropHere = false;
+  
+  dropIt = function (ev,t) {
+    if (ev.preventDefault) ev.preventDefault(); // Allow drop
+    t.insertBefore(document.getElementById(disk),t.firstChild); // put the element on top of the tower pile
+    for (var i=1;i<=3;i++){ // walk through all piles
+      var e = document.getElementById("t"+i).getElementsByClassName("disk"); // get disks
+      if (e.length) e[0].draggable = true; // top disk is dragable
+      for (var j=1;j<e.length;j++){
+        e[j].draggable = false; // the other disks are not
+      }
+    }
+  }
+  
+  dragEnd = function (ev){
+    dropIt = null; // reset  event functions
+    dragOver = null;
+    dragEnd = null;
+    return true;
+  }
+
+  dragEnter = function (ev,t) {
+    ev.dataTransfer.dropEffect = 'move';
+    // here is the logic: moved disk can only be dropped on top of a bigger one
+    var sl = t.getElementsByClassName("disk"); // get disks on target
+    if (sl.length==0 || sl[0].id>disk) { // allow if dragged disk is smaller than top disk on target
+      canDropHere = true;
+      if (ev.preventDefault) ev.preventDefault(); 
+      return false;
+    }
+    canDropHere = false;
+    return true;
+  }
+
+  dragOver = function (ev,t) {
+    if (canDropHere) {
+      if (ev.preventDefault) ev.preventDefault(); 
+      return false;
+    }
+    return true;
+  }
+
+  return true;
+}
+
+    </script>
+    <style type="text/css">
+body	{ 
+  background-color: #000000; 
+  color: #FFFFFF;
+  }
+  
+.game {
+  width: 350px; 
+  height: 140px; 
+  margin: 10px;
+  position:relative;
+  background-color: #a0a0a0;
+  border-radius: 10px 10px 0px 0px;
+  border-bottom-style: ridge;
+  border-width: 5px;
+  box-shadow: 7px 7px 3px #505050;
+  }
+
+.tower {
+  width: 100px;
+  position: absolute;
+  bottom: 1px;
+  z-index : 0;
+  }
+  
+#t1 {left:10px}
+#t2 {left:120px}
+#t3 {left:230px}
+
+.disk {
+  height: 20px;
+  border-radius: 8px;
+  }
+
+.disk {
+  box-shadow: 15px 3px 7px #606060;
+  }
+  
+.bottom{
+  box-shadow: 15px 3px 7px #606060;
+  }
+  
+.disk, .bottom{
+  font-size: 0px;
+  }
+  
+#s1 {
+  width: 30px;
+  margin-left: 35px;
+  background-color: #ffff00;
+  background: -moz-radial-gradient(40% 30%, #ffff00, #45352a);
+  background: -webkit-radial-gradient(40% 30%, #ffff00, #45352a);
+  background: -o-radial-gradient(40% 30%, #ffff00, #45352a);
+  background: radial-gradient(40% 30%, #ffff00, #45352a);
+  }
+
+#s2 {
+  width: 50px;
+  margin-left: 25px;
+  background-color: #ff4000;
+  background: -moz-radial-gradient(40% 30%, #ff4000, #602727);
+  background: -webkit-radial-gradient(40% 30%, #ff4000, #602727);
+  background: -o-radial-gradient(40% 30%, #ff4000, #602727);
+  background: radial-gradient(40% 30%, #ff4000, #602727);
+  }
+
+#s3 {
+  width: 70px;
+  margin-left: 15px;
+  background-color: #ff00ff;
+  background: -moz-radial-gradient(40% 30%, #ff00ff, #601a60);
+  background: -webkit-radial-gradient(40% 30%, #ff00ff, #601a60);
+  background: -o-radial-gradient(40% 30%, #ff00ff, #601a60);
+  background: radial-gradient(40% 30%, #ff00ff, #601a60);
+  }
+
+#s4 {
+  width: 90px;
+  margin-left: 5px;
+  background-color: #40ff00;
+  background: -moz-radial-gradient(40% 30%, #40ff00, #276027);
+  background: -webkit-radial-gradient(40% 30%, #40ff00, #276027);
+  background: -o-radial-gradient(40% 30%, #40ff00, #276027);
+  background: radial-gradient(40% 30%, #40ff00, #276027);
+  }
+
+#s5 {
+  width: 110px;
+  margin-left: -5px;
+  background-color: #000000;
+  background: -moz-radial-gradient(40% 30%, #80a0ff, #000060);
+  background: -webkit-radial-gradient(40% 30%, #80a0ff, #000060);
+  background: -o-radial-gradient(40% 30%, #80a0ff, #000060);
+  background: radial-gradient(40% 30%, #80a0ff, #000060);
+  }
+  
+div.bottom{
+  height:120px;
+  width: 10px;
+  border-radius: 3px;
+  position: absolute;
+  left:45px;
+  bottom: 0px;
+  background-color: #80c0ff;
+  background: -moz-radial-gradient(40% 45%, #80c0ff, #1a60d0);
+  background: -webkit-radial-gradient(40% 45%, #80c0ff, #1a60d0);
+  background: -o-radial-gradient(40% 45%, #80c0ff, #1a60d0);
+  background: radial-gradient(40% 45%, #80c0ff, #1a60d0);
+  z-index:-1;
+  }
+  
+    </style>
+  </head>
+  <body>
+
+  <h1> Drag'n Drop - Towers of Hanoi</h1>
+  <div class=body>
+    <div>
+<div class=game>
+  <div class=tower id=t1 ondragover="return dragOver(event,this)" ondrop="return dropIt(event,this)" ondragenter="return dragEnter(event,this)">
+    <div class=disk id=s1 draggable="true" ondragstart="dragStart(event)" ondragend="dragEnd(event)">=</div>
+    <div class=disk id=s2 draggable="false" ondragstart="dragStart(event)" ondragend="dragEnd(event)">==</div>
+    <div class=disk id=s3 draggable="false" ondragstart="dragStart(event)" ondragend="dragEnd(event)">===</div>
+    <div class=disk id=s4 draggable="false" ondragstart="dragStart(event)" ondragend="dragEnd(event)">====</div>
+    <div class=disk id=s5 draggable="false" ondragstart="dragStart(event)" ondragend="dragEnd(event)">====</div>
+    <!-- div class=disk id=s5 draggable="false" ondragstart="dragStart(event)" ondragend="dragEnd(event)">====</div -->
+    <div class=bottom id=z1>/\/\/\/\/\/\/\/\/\ </div>
+  </div>
+  <div class=tower id=t2 ondragover="return dragOver(event,this)" ondrop="return dropIt(event,this)" ondragenter="return dragEnter(event,this)">
+    <div class=bottom id=z2>/\/\/\/\/\/\/\/\/\ </div>
+  </div>
+  <div class=tower id=t3 ondragover="return dragOver(event,this)" ondrop="return dropIt(event,this)" ondragenter="return dragEnter(event,this)">
+    <div class=bottom id=z3>/\/\/\/\/\/\/\/\/\ </div>
+  </div>
+</div>
+    </div>
+      <p>Use drag'n drop to move the disks from pile 1 to pile 3. <br> You drag the disks one by one
+        and <br>you are not allowed to put a bigger disk on top of a smaller one.
+      </p>
+</div>
+
+  </body>
+</html>

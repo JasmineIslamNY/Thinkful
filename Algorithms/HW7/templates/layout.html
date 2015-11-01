@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{title}}{% endblock %}</title>
+    <script type="text/javascript">
+ 	function selectTower() 
+		{ if(confirm('Are you sure you want to){ alert("its done.");
+	} 
+		else { return false; }
+} 
+
+    </script>
+    <style type="text/css">
+body	{ 
+  background-color: #000000; 
+  color: #FFFFFF;
+  }
+  
+.game {
+  width: 350px; 
+  height: 140px; 
+  margin: 10px;
+  position:relative;
+  background-color: #a0a0a0;
+  border-radius: 10px 10px 0px 0px;
+  border-bottom-style: ridge;
+  border-width: 5px;
+  box-shadow: 7px 7px 3px #505050;
+  }
+
+.tower {
+  width: 100px;
+  position: absolute;
+  bottom: 1px;
+  z-index : 0;
+  }
+  
+#t1 {left:10px}
+#t2 {left:120px}
+#t3 {left:230px}
+
+.disk {
+  height: 20px;
+  border-radius: 8px;
+  }
+
+.disk {
+  box-shadow: 15px 3px 7px #606060;
+  }
+  
+.bottom{
+  box-shadow: 15px 3px 7px #606060;
+  }
+  
+.disk, .bottom{
+  font-size: 0px;
+  }
+  
+#disk1 {
+  width: 70px;
+  margin-left: 15px;
+  background-color: #ff00ff;
+  background: -moz-radial-gradient(40% 30%, #ff00ff, #601a60);
+  background: -webkit-radial-gradient(40% 30%, #ff00ff, #601a60);
+  background: -o-radial-gradient(40% 30%, #ff00ff, #601a60);
+  background: radial-gradient(40% 30%, #ff00ff, #601a60);
+  }
+
+#disk2 {
+  width: 90px;
+  margin-left: 5px;
+  background-color: #40ff00;
+  background: -moz-radial-gradient(40% 30%, #40ff00, #276027);
+  background: -webkit-radial-gradient(40% 30%, #40ff00, #276027);
+  background: -o-radial-gradient(40% 30%, #40ff00, #276027);
+  background: radial-gradient(40% 30%, #40ff00, #276027);
+  }
+
+#disk3 {
+  width: 110px;
+  margin-left: -5px;
+  background-color: #000000;
+  background: -moz-radial-gradient(40% 30%, #80a0ff, #000060);
+  background: -webkit-radial-gradient(40% 30%, #80a0ff, #000060);
+  background: -o-radial-gradient(40% 30%, #80a0ff, #000060);
+  background: radial-gradient(40% 30%, #80a0ff, #000060);
+  }
+  
+div.bottom{
+  height:120px;
+  width: 10px;
+  border-radius: 3px;
+  position: absolute;
+  left:45px;
+  bottom: 0px;
+  background-color: #80c0ff;
+  background: -moz-radial-gradient(40% 45%, #80c0ff, #1a60d0);
+  background: -webkit-radial-gradient(40% 45%, #80c0ff, #1a60d0);
+  background: -o-radial-gradient(40% 45%, #80c0ff, #1a60d0);
+  background: radial-gradient(40% 45%, #80c0ff, #1a60d0);
+  z-index:-1;
+  }
+  
+    </style>
+  </head>
+  <body>
+
+
+
+  <h1> Towers of Hanoi</h1>
+  <div class=body>
+    <div>
+<div class=game>
+  <div class=tower id=t1>
+          {% block content1 %}{% endblock %}
+    <div class=bottom id=z1>/\/\/\/\/\/\/\/\/\ </div>
+	<button onclick=selectTower type="button">Tower 1</button>	
+  </div>
+  <div class=tower id=t2>
+          {% block content2 %}{% endblock %}
+    <div class=bottom id=z2>/\/\/\/\/\/\/\/\/\ </div>
+	<button type="button">Tower 2</button>
+  </div>
+  <div class=tower id=t3>
+          {% block content3 %}{% endblock %}
+    <div class=bottom id=z3>/\/\/\/\/\/\/\/\/\ </div>
+	<button type="button">Tower 3</button>
+  </div>
+</div>
+    
+
+  </body>
+</html>
