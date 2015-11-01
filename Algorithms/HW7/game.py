@@ -5,10 +5,14 @@ class Game(object):
 		self.tower1 = Stack()
 		self.tower2 = Stack()
 		self.tower3 = Stack()
+		self.fromTower = None
+		self.toTower = None
+				
 
 		self.tower1.push(3)
 		self.tower1.push(2)
-		self.tower1.push(1)	
+		self.tower1.push(1)
+	
 
 
 	def printTower(self, towerNum):
@@ -21,18 +25,18 @@ class Game(object):
 				div = div + "<div class=disk id=disk" + str(i) + ">=</div> "
 			return div
 	
-	def moveDisk(self, fromTower, toTower):
-		toTowerValue = toTower.peek()
-		fromTowerValue = fromTower.peek()
+	def moveDisk(self, fromTwr, toTwr):
+		toTowerValue = toTwr.peek()
+		fromTowerValue = fromTwr.peek()
 		if toTowerValue== []:
 			toTowerValue = [100]
 
-		if fromTower.count == 0:
+		if fromTwr.count == 0:
 			return -1
 		elif fromTowerValue[0] >= toTowerValue[0]:
 			return -1
 		else:
-			toTower.push(fromTower.pop())
+			toTwr.push(fromTwr.pop())
 
 	
 if __name__ == "__main__":
