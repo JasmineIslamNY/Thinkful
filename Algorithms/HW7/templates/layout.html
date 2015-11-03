@@ -57,7 +57,18 @@ body	{
   font-size: 0px;
   }
   
+
 #disk1 {
+  width: 50px;
+  margin-left: 25px;
+  background-color: #ff4000;
+  background: -moz-radial-gradient(40% 30%, #ff4000, #602727);
+  background: -webkit-radial-gradient(40% 30%, #ff4000, #602727);
+  background: -o-radial-gradient(40% 30%, #ff4000, #602727);
+  background: radial-gradient(40% 30%, #ff4000, #602727);
+  }
+
+#disk2 {
   width: 70px;
   margin-left: 15px;
   background-color: #ff00ff;
@@ -67,7 +78,7 @@ body	{
   background: radial-gradient(40% 30%, #ff00ff, #601a60);
   }
 
-#disk2 {
+#disk3 {
   width: 90px;
   margin-left: 5px;
   background-color: #40ff00;
@@ -77,8 +88,9 @@ body	{
   background: radial-gradient(40% 30%, #40ff00, #276027);
   }
 
-#disk3 {
+#tower {
   width: 110px;
+  color: white;
   margin-left: -5px;
   background-color: #000000;
   background: -moz-radial-gradient(40% 30%, #80a0ff, #000060);
@@ -86,6 +98,7 @@ body	{
   background: -o-radial-gradient(40% 30%, #80a0ff, #000060);
   background: radial-gradient(40% 30%, #80a0ff, #000060);
   }
+
   
 div.bottom{
   height:120px;
@@ -116,21 +129,21 @@ div.bottom{
           {% block content1 %}{% endblock %}
     <div class=bottom id=z1>/\/\/\/\/\/\/\/\/\ </div>
 	<form role="form" method="POST">
-		<button type="submit" name="submit" value="tower1">Tower 1</button>
+		<button type="submit" id=tower name="submit" value="tower1">Tower 1</button>
 	</form>	
   </div>
   <div class=tower id=t2>
           {% block content2 %}{% endblock %}
     <div class=bottom id=z2>/\/\/\/\/\/\/\/\/\ </div>
 	<form role="form" method="POST">
-		<button type="submit" name="submit" value="tower2">Tower 2</button>
+		<button type="submit" id=tower name="submit" value="tower2">Tower 2</button>
 	</form>	
   </div>
   <div class=tower id=t3>
           {% block content3 %}{% endblock %}
     <div class=bottom id=z3>/\/\/\/\/\/\/\/\/\ </div>
 	<form role="form" method="POST">
-		<button type="submit" name="submit" value="tower3">Tower 3</button>
+		<button type="submit" id=tower name="submit" value="tower3">Tower 3</button>
 	</form>	
   </div>
 	   
