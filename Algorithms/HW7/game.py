@@ -7,6 +7,7 @@ class Game(object):
 		self.tower3 = Stack()
 		self.fromTower = None
 		self.toTower = None
+		self.moves = 0
 				
 
 		self.tower1.push(3)
@@ -38,6 +39,49 @@ class Game(object):
 		else:
 			toTwr.push(fromTwr.pop())
 
+	def buttonPressed(self, button):
+		if button == 'reset':
+			self.resetGame()
+		elif button == 'tower1':
+			tower = self.tower1
+			self.towerSelected(tower)
+		elif button == 'tower2':
+			tower = self.tower2
+			self.towerSelected(tower)
+		elif button == 'tower3':
+			tower = self.tower3
+			self.towerSelected(tower)
+			
+	def towerSelected(self, tower):
+		if self.fromTower == None:
+			self.fromTower = tower
+		else:
+			self.toTower = tower
+			self.moveDisk(self.fromTower, self.toTower)
+			self.toTower = None
+			self.fromTower = None
+			self.moves += 1
+
+	def displayFromTower(self):
+		if self.fromTower == self.tower1:
+			return "Tower 1"
+		elif self.fromTower == self.tower2:
+			return "Tower 2"
+		elif self.fromTower == self.tower3:
+			return "Tower 3"
+
+	def resetGame(self):
+		self.tower1 = Stack()
+		self.tower2 = Stack()
+		self.tower3 = Stack()
+		self.fromTower = None
+		self.toTower = None
+		self.moves = 0
+				
+
+		self.tower1.push(3)
+		self.tower1.push(2)
+		self.tower1.push(1)
 	
 if __name__ == "__main__":
 	game = Game()

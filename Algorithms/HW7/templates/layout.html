@@ -133,8 +133,23 @@ div.bottom{
 		<button type="submit" name="submit" value="tower3">Tower 3</button>
 	</form>	
   </div>
+	   
+
+
 </div>
-    
+     <div class="form-group">
+        <label for="moves_made">Moves Made   </label>
+        <textarea class="form-control" id="moves_made" name="moves_made" rows="1" readonly>{% block moves %}{{moves}}{% endblock %}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="from_tower">From Tower   </label>
+        <textarea class="form-control" id="from_tower" name="from_tower" rows="1" readonly>{% block from_tower %}{{from_tower}}{% endblock %}</textarea>
+    </div>
+
+	<form role="form" method="POST">
+		<button type="submit" name="submit" value="reset">Reset Game</button>
+	</form>	
 
   </body>
 </html>
