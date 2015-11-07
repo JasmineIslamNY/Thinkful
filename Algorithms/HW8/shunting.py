@@ -45,12 +45,16 @@ class Shunting(object):
 					self.operatorStack.push(holdItem)
 				else:
 					while holdItem <> "":
-						result = compareOperators(holdItem, self.operatorStack.peek()[0])
-						if result == 1:
+						if self.operatorStack.peek() == []:
 							self.operatorStack.push(holdItem)
-							holdItem = ""
-						elif result == -1:
-							self.outputQueue.push(self.operatorStack.pop())
+							holdItem =""
+						else:	
+							result = compareOperators(holdItem, self.operatorStack.peek()[0])
+							if result == 1:
+								self.operatorStack.push(holdItem)
+								holdItem = ""
+							elif result == -1:
+								self.outputQueue.push(self.operatorStack.pop())
 
 			else:
 				self.outputQueue.push(holdItem)
@@ -66,6 +70,8 @@ if __name__ == "__main__":
 	Dijkstra = Shunting("3+4*2/(1-5)^2^3")
 	print(Dijkstra.outputQueue.peek())
 
+	Dijkstra = Shunting("3*4+2")
+	print(Dijkstra.outputQueue.peek())
 
 
 
