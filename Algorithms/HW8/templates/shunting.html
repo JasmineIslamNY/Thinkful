@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>
+    Shunting-Yard Algorithm
+</h1>
+
+<form role="form" method="POST">
+    <div class="form-group">
+        <label for="problem">Enter Math Problem</label>
+        <input type="text" class="form-control" id="problem" name="problem" placeholder="Enter Problem" required>
+    </div>
+    <div class="form-group">
+        <label for="display_problem">Math Problem Entered</label>
+        <textarea class="form-control" id="display_problem" name="display_problem" rows="1" readonly>{{ display_problem }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="interim">After Reverse Polish</label>
+        <textarea class="form-control" id="interim" name="interim" rows="1" readonly>{{ interim }}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="solution">Solution</label>
+        <textarea class="form-control" id="solution" name="solution" rows="1" readonly>{{ solution }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+{% endblock %}
