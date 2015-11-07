@@ -15,12 +15,13 @@ class ReversePolishNotation(object):
 	def rpn(self):
 		while self.inputQueue.peek() <> []:
 			holdItem = ""
-			holdItem = self.inputQueue.pop()
+			holdItem = self.inputQueue.dequeue()
 	
 			if holdItem in self.operators:
 				operator2 = self.outputStack.pop()
 				operator1 = self.outputStack.pop()
 				result = operatorMath(operator1, holdItem, operator2)
+				print(result)
 				self.outputStack.push(result)
 			else:
 				self.outputStack.push(holdItem)

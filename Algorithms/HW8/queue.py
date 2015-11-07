@@ -13,7 +13,7 @@ class Queue(object):
 		self.head = None
 		self.end = None	
 
-	def push(self, value):
+	def enqueue(self, value):
 		item = Item(value)
 		if (self.head == None):
 			self.head = item
@@ -24,7 +24,7 @@ class Queue(object):
 			self.end = item
 		self.count += 1
 	
-	def pop(self):
+	def dequeue(self):
 		if (self.head == None):
 			print("Empty List")
 		else:
@@ -50,12 +50,12 @@ if __name__ == "__main__":
 	queue = Queue()
 	print queue.peek()
 	print("Adding to the queue")
-	queue.push(7)
-	queue.push(6)
-	queue.push(5)
-	queue.push(4)
+	queue.enqueue(7)
+	queue.enqueue(6)
+	queue.enqueue(5)
+	queue.enqueue(4)
 	print queue.peek()
 	print("Removing from queue")
-	value = queue.pop()
-    	print("Popped {} from queue".format(value))
+	value = queue.dequeue()
+    	print("dequeued {} from queue".format(value))
 	print queue.peek()

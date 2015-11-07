@@ -18,27 +18,26 @@ class Shunting(object):
 		holdItem = ""
 		for i in range(0, len(input)):
 			if input[i] in self.operators:
-				self.inputQueue.push(holdItem)
-				self.inputQueue.push(input[i])
+				if holdItem <> "":
+					self.inputQueue.enqueue(holdItem)
+				self.inputQueue.enqueue(input[i])
 				holdItem = ""
 			else:
 				holdItem = holdItem + input[i]
 		if holdItem <> "":
-			self.inputQueue.push(holdItem)
+			self.inputQueue.enqueue(holdItem)
 	
 	def shunt(self):
 		while self.inputQueue.peek() <> []:
 			holdItem = ""
-			holdItem = self.inputQueue.pop()
+			holdItem = self.inputQueue.dequeue()
 	
-			if holdItem == "":
-				pass                                         #had to do this to get rid of empty spots due to paranthesis
-			elif holdItem == "(":
+			if holdItem == "(":
 				self.operatorStack.push(holdItem)
 			elif holdItem == ")":
 				temp = self.operatorStack.pop()
 				while temp <> "(":
-					self.outputQueue.push(temp)
+					self.outputQueue.enqueue(temp)
 					temp = self.operatorStack.pop()
 			elif holdItem in self.operators:
 				if self.operatorStack.peek() == []:
@@ -54,13 +53,13 @@ class Shunting(object):
 								self.operatorStack.push(holdItem)
 								holdItem = ""
 							elif result == -1:
-								self.outputQueue.push(self.operatorStack.pop())
+								self.outputQueue.enqueue(self.operatorStack.pop())
 
 			else:
-				self.outputQueue.push(holdItem)
+				self.outputQueue.enqueue(holdItem)
 
 		while self.operatorStack.peek() <> []:
-			self.outputQueue.push(self.operatorStack.pop())
+			self.outputQueue.enqueue(self.operatorStack.pop())
 
 	
 	

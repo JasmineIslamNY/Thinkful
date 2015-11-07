@@ -19,16 +19,14 @@ class Stack(object):
 		if self.count == 0:
 			self.head = item
 			self.count += 1
-			return 1
 		else:
 			item.setNextItem(self.head)
 			self.head = item
 			self.count += 1
-			return 1
 	
 	def pop(self):
 		if (self.head == None):
-			return -1
+			return None
 		else:
 			itemToReturn = self.head
 			self.head = itemToReturn.nextItem
