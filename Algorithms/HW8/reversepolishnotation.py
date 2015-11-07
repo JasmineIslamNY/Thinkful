@@ -21,7 +21,6 @@ class ReversePolishNotation(object):
 				operator2 = self.outputStack.pop()
 				operator1 = self.outputStack.pop()
 				result = operatorMath(operator1, holdItem, operator2)
-				print(result)
 				self.outputStack.push(result)
 			else:
 				self.outputStack.push(holdItem)
