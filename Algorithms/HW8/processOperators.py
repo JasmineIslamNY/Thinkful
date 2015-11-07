@@ -39,6 +39,14 @@ def operatorMath(operand1, operator, operand2):
 	elif operator == "^":
 		return (num(operand1) ** num(operand2))	
 
+def convertToString(list):
+	if len(list) == 1:
+		result = list[0]
+	else:
+		result = list[0]
+		for i in range(1,len(list)):
+			result = result + ", " + list[i]
+	return result
 
 def num(s):
     try:
