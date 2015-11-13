@@ -1,4 +1,5 @@
 from outputjson import OutputJSON
+from outputxml import OutputXML
 
 class KeyValuePair (object):
     def __init__(self, key, value):
@@ -44,6 +45,9 @@ class DataObject (object):
         return returnPair 
      
 if __name__ == "__main__":
+
+    #Testing JSON
+    #-----------------
     test = DataObject()
     test.addKeyValue("fname", "Jasmine")
     test.addKeyValue ("lname", "Islam")
@@ -65,6 +69,32 @@ if __name__ == "__main__":
     
     text = OutputJSON(test)
     print(text.json)
+
+    
+
+    #Testing XML
+    #------------------
+
+    test = DataObject()
+    test.addKeyValue("fname", "Jasmine")
+    test.addKeyValue ("lname", "Islam")
+    testchild1 = DataObject("address", "list")
+    grandchild1 = DataObject("addressitem", "group")
+    grandchild1.addKeyValue ("street", "63 S Terrace Place")  
+    grandchild1.addKeyValue ("city", "Valley Stream")   
+    grandchild2 = DataObject("addressitem", "group")
+    grandchild2.addKeyValue ("street", "731 Lexington Ave")  
+    grandchild2.addKeyValue ("city", "New York")
+    testchild1.addPair(grandchild1)
+    testchild1.addPair(grandchild2)
+    test.addPair(testchild1)
+    testchild2 = DataObject("phone_numbers", "group")
+    testchild2.addKeyValue ("home", "(516) 837-0641")  
+    testchild2.addKeyValue ("mobile", "(347) 423-7387")   
+    test.addPair(testchild2)
+
+    text = OutputXML(test)
+    print(text.xml)
 
 
     """    
