@@ -1,34 +1,34 @@
 from outputjson import OutputJSON
 
 class KeyValuePair (object):
-    def __init__(self, key, value, isList, isGroup):
+    def __init__(self, key, value):
         self.key = key
         self.value = value
-        self.isList = isList
-	self.isGroup = isGroup
+        self.kind = None
         self.nextPair = None
 
 class DataObject (object):
-    def __init__(self, name="item"):
+    def __init__(self, name="item", kind="none"):
         self.name = name
         self.head = None
+        self.kind = kind
+        self.nextPair = None
         self.nextReturnPair = None
 
     def addPair (self, pair):
         if self.head == None:
 	    self.head = pair
-	    self.nextReturnPair = self.head
-		
+	    self.nextReturnPair = self.head		
         else:
             pairToAddTo = self.head
             while pairToAddTo.nextPair <> None:
-                pairToAddTo = pairToAddTo.nextPair  
+            	pairToAddTo = pairToAddTo.nextPair  
             pairToAddTo.nextPair = pair
         
     def addKeyValue (self, key, value):
-        pair = KeyValuePair(key, value, "no", "no")
+        pair = KeyValuePair(key, value)
         self.addPair(pair)
-        
+    """   
     def addKeyList (self, key, value):
         pair = KeyValuePair(key, value, "yes", "no")
         self.addPair(pair)
@@ -36,7 +36,8 @@ class DataObject (object):
     def addKeyGroup (self, key, value):
         pair = KeyValuePair(key, value, "no", "yes")
         self.addPair(pair)
-
+    """
+    
     def returnNextPair(self):
         returnPair = self.nextReturnPair
         self.nextReturnPair = self.nextReturnPair.nextPair
@@ -46,37 +47,34 @@ if __name__ == "__main__":
     test = DataObject()
     test.addKeyValue("fname", "Jasmine")
     test.addKeyValue ("lname", "Islam")
-    testchild = DataObject()
+    testchild = DataObject("address", "list")
     testchild.addKeyValue ("street", "63 S Terrace Place")  
     testchild.addKeyValue ("city", "Valley Stream")   
-    test.addKeyList("address", testchild)
-    testchild2 = DataObject("phone_numbers")
+    test.addPair(testchild)
+    testchild2 = DataObject("phone_numbers", "group")
     testchild2.addKeyValue ("home", "(516) 837-0641")  
     testchild2.addKeyValue ("mobile", "(347) 423-7387")   
-    test.addKeyGroup("phones", testchild2)
+    test.addPair(testchild2)
 
+    """
     text = OutputJSON(test)
     print(text.json)
-
-
     """
+
+    
     while test.nextReturnPair <> None:
         pair = test.returnNextPair()
-	if pair.isList == "no" and pair.isGroup == "no":
+	if pair.kind == None:
 		print ("{} : {}".format(pair.key, pair.value))
-        elif pair.isList == "yes":
-		print(pair.key)
-		pairChild = pair.value
-		while pairChild.nextReturnPair <> None:
-        		grChild = pairChild.returnNextPair()
-			if grChild.isList == "no" and grChild.isGroup == "no":
-				print ("{} : {}".format(grChild.key, grChild.value))
-	elif pair.isGroup == "yes":
-		print(pair.key)
-		pairChild = pair.value
-		while pairChild.nextReturnPair <> None:
-        		grChild = pairChild.returnNextPair()
-			if grChild.isList == "no" and grChild.isGroup == "no":
-				print ("{} : {}".format(grChild.key, grChild.value))
-    """
+        elif pair.kind == "list":
+		print(pair.name)
+		while pair.nextReturnPair <> None:
+			pairChild = pair.returnNextPair()
+			print ("{} : {}".format(pairChild.key, pairChild.value))
+	elif pair.kind == "group":
+		print(pair.name)
+		while pair.nextReturnPair <> None:
+			pairChild = pair.returnNextPair()
+			print ("{} : {}".format(pairChild.key, pairChild.value))
+   
        
