@@ -4,8 +4,9 @@ class InputJSON(object):
 	def __init__(self, input):
 		self.input = input
 		self.specialCharacters = ('"', '{', '}', '[', ']', ',', ':')
+		self.processedInput = None
 		
-		self.processedInput = self.processInput(self.input)
+		self.processIt()
 
 	def processInput(self, textData, tracker = "", tempKey = ""):
 		parent = DataObject()
@@ -13,7 +14,7 @@ class InputJSON(object):
 		#tracker options include "", creatingKey, completedKey, creatingValue, creatingList
 		groupListEndTracker = None
 		
-		for i in range (0, len(textData)):
+		for i in range (1, len(textData)):
 			if groupListEndTracker == "group":
 				if textData[i] == "}":
 					groupListEndTracker = None
@@ -30,12 +31,14 @@ class InputJSON(object):
 						tracker = "creatingValue"
 					elif tracker == "creatingValue":
 						tracker = ""
-						parent.addKeyValue(tempKey, tempValue)	
+						parent.addKeyValue(tempKey, tempValue)
+						tempKey = ""
+						tempValue = ""	
 					else:
 						print('ERROR: Invalid "')
 				elif textData[i] == "{":
 					groupListEndTracker = "group"
-					child = self.processInput(textData[i+1:])
+					child = self.processInput(textData[i:])
 					child.kind = "group"
 					if tracker == "completedKey":
 						tracker = ""
@@ -50,7 +53,7 @@ class InputJSON(object):
 					return parent
 				elif textData[i] == "[":
 					groupListEndTracker = "list"
-					child = self.processInput(textData[i+1:], "creatingList", tempKey)
+					child = self.processInput(textData[i:], "creatingList", tempKey)
 					child.kind = "list"
 					if tracker == "completedKey":
 						tracker = ""
@@ -64,9 +67,9 @@ class InputJSON(object):
 					if tempValue == "":
 						pass
 					else:
-						tempValue = tempValue + textData[i]
+						tempValue = tempValue + " "
 				else:
-					tempKey = tempKey + textData[i]
+					tempKey = tempKey + " "
 			
 			else:
 				if tracker == "creatingKey":
@@ -74,3 +77,6 @@ class InputJSON(object):
 				elif tracker == "creatingValue":
 					tempValue = tempValue + textData[i]
 		return parent
+
+	def processIt(self):
+		self.processedInput = self.processInput(self.input)
