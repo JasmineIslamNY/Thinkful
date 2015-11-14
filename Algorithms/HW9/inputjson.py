@@ -62,20 +62,12 @@ class InputJSON(object):
 					parent.addPair(child)
 				elif textData[i] == "]":
 					return parent
-			elif textData[i] == " ":
-				if tempKey == "":
-					if tempValue == "":
-						pass
-					else:
-						tempValue = tempValue + " "
-				else:
-					tempKey = tempKey + " "
-			
+
 			else:
 				if tracker == "creatingKey":
 					tempKey = tempKey + textData[i]
 				elif tracker == "creatingValue":
-					tempValue = tempValue + textData[i]
+					tempValue = tempValue + textData[i]     #+ "*"
 		return parent
 
 	def processIt(self):

@@ -1,7 +1,7 @@
 class OutputJSON (object):
 	def __init__(self, dataobject):
 		self.dataObject = dataobject
-		self.json = "{ \""
+		self.json = "{\""
 
 		self.returnOutput()
 
