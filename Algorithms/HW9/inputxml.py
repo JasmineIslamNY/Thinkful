@@ -1,9 +1,9 @@
 from dataobject import DataObject
 
-class InputJSON(object):
+class InputXML(object):
 	def __init__(self, input):
 		self.input = input
-		self.specialCharacters = ('"', '{', '}', '[', ']', ',', ':')
+		self.specialCharacters = ('<', '>', '/')
 		self.processedInput = None
 		
 		self.processIt()
@@ -11,18 +11,38 @@ class InputJSON(object):
 	def processInput(self, textData, tracker = "", tempKey = ""):
 		parent = DataObject()
 		tempValue = ""
-		#tracker options include "", creatingKey, completedKey, creatingValue, creatingList
+		#tracker options include "", creatingKey, completedKey, creatingValue, creatingGroup, creatingList
 		groupListEndTracker = None
+		possibleGroupKey = ""
+		possibleListKey = ""
+
 		
 		for i in range (1, len(textData)):
-			if groupListEndTracker == "group":                #this is to allow skipping through the part of the input text that is called recursively
-				if textData[i] == "}":
+			if groupListEndTracker == "group":
+				if textData[(i-len(possibleGroupKey)-2):i] == "</"+ possibleGroupKey +">":
 					groupListEndTracker = None
-			elif groupListEndTracker == "list":                #this is to allow skipping through the part of the input text that is called recursively
+			elif groupListEndTracker == "list":
 				if textData[i] == "]":
 					groupListEndTracker = None
 			elif textData[i] in self.specialCharacters:
-				if textData[i] == '"':
+				if textData[i] == '<':
+					if tracker == "":
+						tracker = "creatingKey"
+					elif tracker == "creatingKey":
+						print('ERROR: Invalid <')
+					elif tracker == "completedKey":
+
+						
+						tracker = "creatingValue"
+					elif tracker == "creatingValue":
+						tracker = ""
+						parent.addKeyValue(tempKey, tempValue)
+						tempKey = ""
+						tempValue = ""	
+					else:
+						print('ERROR: Invalid "')
+
+				if textData[i] == '>':
 					if tracker == "":
 						tracker = "creatingKey"
 					elif tracker == "creatingKey":
@@ -36,6 +56,9 @@ class InputJSON(object):
 						tempValue = ""	
 					else:
 						print('ERROR: Invalid "')
+
+
+
 				elif textData[i] == "{":
 					groupListEndTracker = "group"
 					child = self.processInput(textData[i:])
