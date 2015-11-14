@@ -1,15 +1,15 @@
 from dataobject import DataObject
 
-class inputJSON(object):
-	self __init__(self, input):
+class InputJSON(object):
+	def __init__(self, input):
 		self.input = input
-		self.specialCharacters = ("/"", "{", "}", "[", "]", ",", ":")
+		self.specialCharacters = ('"', '{', '}', '[', ']', ',', ':')
 		
 		self.processedInput = self.processInput(self.input)
 
 	def processInput(self, textData, tracker = "", tempKey = ""):
 		parent = DataObject()
-		tempValue = None
+		tempValue = ""
 		#tracker options include "", creatingKey, completedKey, creatingValue, creatingList
 		groupListEndTracker = None
 		
@@ -21,7 +21,7 @@ class inputJSON(object):
 				if textData[i] == "]":
 					groupListEndTracker = None
 			elif textData[i] in self.specialCharacters:
-				if textData[i] == "/"":
+				if textData[i] == '"':
 					if tracker == "":
 						tracker = "creatingKey"
 					elif tracker == "creatingKey":
@@ -32,7 +32,7 @@ class inputJSON(object):
 						tracker = ""
 						parent.addKeyValue(tempKey, tempValue)	
 					else:
-						print("ERROR: Invalid /"")
+						print('ERROR: Invalid "')
 				elif textData[i] == "{":
 					groupListEndTracker = "group"
 					child = self.processInput(textData[i+1:])
@@ -61,7 +61,7 @@ class inputJSON(object):
 					return parent
 			elif textData[i] == " ":
 				if tempKey == "":
-					if tempValue = None:
+					if tempValue == "":
 						pass
 					else:
 						tempValue = tempValue + textData[i]
