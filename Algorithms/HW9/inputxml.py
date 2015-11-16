@@ -16,8 +16,8 @@ class InputXML(object):
 		possibleGroupKey = ""
 		possibleListKey = ""
 
-		
-		for i in range (1, len(textData)):
+		i = 1
+		while i < len(textData):
 			if groupListEndTracker == "group":
 				if textData[(i-len(possibleGroupKey)-2):i] == "</"+ possibleGroupKey +">":
 					groupListEndTracker = None
@@ -29,10 +29,21 @@ class InputXML(object):
 					if tracker == "":
 						tracker = "creatingKey"
 					elif tracker == "creatingKey":
-						print('ERROR: Invalid <')
+						if textData[i:i+2] == '</':
+							if textData[i:(i+len(tempKey)+3)] == "</"+ tempKey +">":
+								tracker = ""
+								parent.addKeyValue(tempKey, tempValue)
+								tempKey = ""
+								tempValue = ""	
+							elif textData[i:(i+len(possibleGroupKey)+3)] == "</"+ possibleGroupKey +">":
+								return Parent
+							elif textData[i:(i+len(possibleListKey)+3)] == "</"+ possibleListKey +">":
+								return Parent
+							i = i + len(possibleListKey) + 2
+						
 					elif tracker == "completedKey":
 
-						
+
 						tracker = "creatingValue"
 					elif tracker == "creatingValue":
 						tracker = ""
@@ -91,6 +102,7 @@ class InputXML(object):
 					tempKey = tempKey + textData[i]
 				elif tracker == "creatingValue":
 					tempValue = tempValue + textData[i]     #+ "*"
+		i += 1
 		return parent
 
 	def processIt(self):
