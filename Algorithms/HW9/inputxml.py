@@ -39,7 +39,7 @@ class InputXML(object):
 								return Parent
 							elif textData[i:(i+len(possibleListKey)+3)] == "</"+ possibleListKey +">":
 								return Parent
-							i = i + len(possibleListKey) + 2
+							i = i + len(possibleListKey) + 2      #there is an i increment by 1 at the bottom 
 						
 					elif tracker == "completedKey":
 
@@ -102,7 +102,7 @@ class InputXML(object):
 					tempKey = tempKey + textData[i]
 				elif tracker == "creatingValue":
 					tempValue = tempValue + textData[i]     #+ "*"
-		i += 1
+			i += 1
 		return parent
 
 	def processIt(self):
