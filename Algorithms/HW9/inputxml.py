@@ -21,7 +21,7 @@ class InputXML(object):
 		tempListKey = ""
 
 
-		i = 1
+		i = 0
 		while i < len(textData):
 			if textData[i] in self.specialCharacters:
 				if textData[i] == '<':
@@ -29,6 +29,7 @@ class InputXML(object):
 						if textData[i:i+2] == '</':
 							if textData[i:(i+len(tempListKey)+3)] == "</"+ tempListKey +">":
 								parent.kind = "list"
+								parent.name = tempListKey
 								i= i + len(tempListKey) + 3
 								self.counter = i
 								return parent
@@ -49,6 +50,8 @@ class InputXML(object):
 								tempKey = ""
 								tempValue = ""	
 						elif textData[i:i+2] != '</':
+							print(textData[i:])
+							print("******")	
 							childObject = InputXML(textData[i:], tempKey)
 							child = childObject.processedInput
 							tempKey = ""
@@ -65,8 +68,6 @@ class InputXML(object):
 				if textData[i] == '>':
 					if tracker == "creatingKey":
 						tracker = "creatingValue"	
-					else:
-						print('ERROR: Invalid >')
 
 			else:
 				if tracker == "creatingKey":
