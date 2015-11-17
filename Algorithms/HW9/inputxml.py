@@ -8,18 +8,20 @@ class InputXML(object):
 		
 		self.processIt()
 
-	def processInput(self, textData, tracker = "", tempKey = ""):
+	def processInput(self, textData, tempGroupKey = ""):
 		parent = DataObject()
+		tempKey = ""
 		tempValue = ""
+		tracker = ""
 		#tracker options include "", creatingKey, completedKey, creatingValue, creatingGroup, creatingList
 		groupListEndTracker = None
-		possibleGroupKey = ""
-		possibleListKey = ""
+		tempListKey = ""
+		previousGroupKey = ""
 
 		i = 1
 		while i < len(textData):
 			if groupListEndTracker == "group":
-				if textData[(i-len(possibleGroupKey)-2):i] == "</"+ possibleGroupKey +">":
+				if textData[(i-len(tempGroupKey)-2):i] == "</"+ tempGroupKey +">":
 					groupListEndTracker = None
 			elif groupListEndTracker == "list":
 				if textData[i] == "]":
@@ -27,46 +29,38 @@ class InputXML(object):
 			elif textData[i] in self.specialCharacters:
 				if textData[i] == '<':
 					if tracker == "":
-						tracker = "creatingKey"
-					elif tracker == "creatingKey":
+						if textData[i:i+2] == '</':
+							if textData[i:(i+len(tempListKey)+3)] == "</"+ tempListKey +">":
+								parent.kind = "list"
+								return parent
+							elif textData[i:(i+len(tempGroupKey)+3)] == "</"+ tempGroupKey +">":
+								parent.kind = "group"
+								return parent
+						else:
+							tracker = "creatingKey"
+					elif tracker == "creatingValue":
 						if textData[i:i+2] == '</':
 							if textData[i:(i+len(tempKey)+3)] == "</"+ tempKey +">":
 								tracker = ""
 								parent.addKeyValue(tempKey, tempValue)
+								i = i + len(tempKey) + 2      #there is an i increment by 1 at the bottom 
 								tempKey = ""
-								tempValue = ""	
-							elif textData[i:(i+len(possibleGroupKey)+3)] == "</"+ possibleGroupKey +">":
-								return Parent
-							elif textData[i:(i+len(possibleListKey)+3)] == "</"+ possibleListKey +">":
-								return Parent
-							i = i + len(possibleListKey) + 2      #there is an i increment by 1 at the bottom 
-						
+								tempValue = ""							
 					elif tracker == "completedKey":
-
-
-						tracker = "creatingValue"
-					elif tracker == "creatingValue":
-						tracker = ""
-						parent.addKeyValue(tempKey, tempValue)
-						tempKey = ""
-						tempValue = ""	
-					else:
-						print('ERROR: Invalid "')
-
+						if textData[i:i+2] != '</':
+							child = self.processInput(textData[i:])
+							if child.kind == "group":
+								if parent.previousGroupKey == "":
+									parent.previousGroupKey = child.name
+								elif parent.previousGroupKey == child.name
+									parent.kind = "list"
+									tempListKey = tempGroupKey
+							parent.addPair(child)
 				if textData[i] == '>':
-					if tracker == "":
-						tracker = "creatingKey"
-					elif tracker == "creatingKey":
-						tracker = "completedKey"
-					elif tracker == "completedKey":
-						tracker = "creatingValue"
-					elif tracker == "creatingValue":
-						tracker = ""
-						parent.addKeyValue(tempKey, tempValue)
-						tempKey = ""
-						tempValue = ""	
+					if tracker == "creatingKey":
+						tracker = "creatingValue"	
 					else:
-						print('ERROR: Invalid "')
+						print('ERROR: Invalid >')
 
 
 
