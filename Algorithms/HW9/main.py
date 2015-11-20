@@ -4,6 +4,26 @@ from outputxml import OutputXML
 from inputjson import InputJSON
 from inputxml import InputXML
 
+class Main(object):
+	def __init__(self):
+		self.output = ""
+		self.input = ""
+
+	def processInput(self, input, inputType):
+		self.input = input
+		if inputType == 'JSON to XML':
+			processed = InputJSON(input)
+			temp = OutputXML(processed.processedInput)
+			self.output = temp.xml
+		elif inputType == 'XML to JSON':
+			processed = InputXML(input)
+			temp = OutputJSON(processed.processedInput)
+			self.output = temp.json
+		else:
+			self.output = "Choose convert type from Drop-Down"
+
+	
+
 if __name__ == "__main__":
 	
 	

@@ -14,9 +14,7 @@ class InputXML(object):
 		parent = DataObject()
 		tempKey = ""
 		tempValue = ""
-		tracker = ""
-		#tracker options include "", creatingKey, completedKey, creatingValue, creatingGroup, creatingList
-		groupListEndTracker = None
+		tracker = ""		#tracker options include "", creatingKey, creatingValue
 		tempGroupKey = self.groupKey
 		tempListKey = ""
 
