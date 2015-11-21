@@ -18,9 +18,7 @@ def output():
 def input():
 
 	input=request.form['input']
-	print(input)
 	inputType=request.form['types']
-	print(inputType)
 	main.processInput(input, inputType)
 	
 	return redirect(url_for("output"))

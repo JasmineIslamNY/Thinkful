@@ -64,6 +64,7 @@ class InputXML(object):
 						elif textData[i:i+2] != '</':	
 							tempGroupKey = tempKey
 							tempKey = ""
+							tempValue = ""
 							tracker = ""
 							i -= 1  		#this is to reset the count so the < is looked at again					
 				if textData[i] == '>':
