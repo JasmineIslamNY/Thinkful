@@ -36,6 +36,12 @@ class InputJSON(object):
 						tempValue = ""	
 					else:
 						print('ERROR: Invalid "')
+				elif textData[i] == ",":
+					if tracker == "creatingValue":
+						tracker = ""
+						parent.addKeyValue(tempKey, tempValue)
+						tempKey = ""
+						tempValue = ""	
 				elif textData[i] == "{":
 					groupListEndTracker = "group"
 					child = self.processInput(textData[i:])
@@ -50,6 +56,11 @@ class InputJSON(object):
 						child.name = groupName
 						parent.addPair(child)
 				elif textData[i] == "}":
+					if tracker == "creatingValue":
+						tracker = ""
+						parent.addKeyValue(tempKey, tempValue)
+						tempKey = ""
+						tempValue = ""	
 					return parent
 				elif textData[i] == "[":
 					groupListEndTracker = "list"
@@ -66,6 +77,10 @@ class InputJSON(object):
 			else:
 				if tracker == "creatingKey":
 					tempKey = tempKey + textData[i]
+				elif tracker == "completedKey":
+					if textData[i] != " ":
+						tracker = "creatingValue"
+						tempValue = tempValue + textData[i] 
 				elif tracker == "creatingValue":
 					tempValue = tempValue + textData[i]     #+ "*"
 		return parent
