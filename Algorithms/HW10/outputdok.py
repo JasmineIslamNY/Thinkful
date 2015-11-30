@@ -34,9 +34,10 @@ class OutputDOK (object):
 		self.prepareOutput(self.dataObject)
 
 	def returnDOK(self):
-		self.returnDictionary = '"rows":' + str(self.rows) + ', ' + '"columns":' + str(self.columns)
+		self.returnDictionary = 'DOK = {' + "'rows':" + str(self.rows) + ", " + "'columns':" + str(self.columns)
 		for keys, values in self.dok.items():
 			if (keys != "rows"):
 				if (keys != "columns"):
-					self.returnDictionary = self.returnDictionary + ', ' 
-					self.returnDictionary = self.returnDictionary + '"' + keys + '":' + str(values)
+					self.returnDictionary = self.returnDictionary + ", " 
+					self.returnDictionary = self.returnDictionary + "'" + keys + "':" + str(values)
+		self.returnDictionary = self.returnDictionary + "}"
