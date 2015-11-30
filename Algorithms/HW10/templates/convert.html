@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>
+    JSON/XML Converter
+</h1>
+
+<form role="form" method="POST">
+    <div class="form-group">
+        <label for="input">Enter JSON or XML</label>
+        <input type="text" class="form-control" id="input" name="input" placeholder="Enter JSON or XML" required>
+    </div>
+
+	<div class="form-group">
+	<select type="submit" name="types">
+  		{% for type in types %}
+      			<option value="{{ type }}">{{ type }}</option>
+  		{% endfor %}
+	</select>
+	</div>
+
+    <div class="form-group">
+        <label for="output">Output</label>
+        <textarea class="form-control" id="output" name="output" readonly  rows="5">{{ output }}</textarea>
+    </div>
+	    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+{% endblock %}
