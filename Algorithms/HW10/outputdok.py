@@ -7,6 +7,8 @@ class OutputDOK (object):
 		self.columns = -1
 
 		self.returnOutput()
+		self.rows +=1   #to setup the count of rows for humans
+		self.columns +=1  #to setup the count of columns for humans
 		self.dok['rows'] = self.rows
 		self.dok['columns'] = self.columns
 		self.returnDOK()
@@ -32,7 +34,7 @@ class OutputDOK (object):
 		self.prepareOutput(self.dataObject)
 
 	def returnDOK(self):
-		self.returnDictionary = '"rows":' + str(self.rows+1) + ', ' + '"columns":' + str(self.columns+1)
+		self.returnDictionary = '"rows":' + str(self.rows) + ', ' + '"columns":' + str(self.columns)
 		for keys, values in self.dok.items():
 			if (keys != "rows"):
 				if (keys != "columns"):

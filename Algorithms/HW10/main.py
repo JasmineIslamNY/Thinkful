@@ -4,6 +4,7 @@ from outputxml import OutputXML
 from inputjson import InputJSON
 from inputxml import InputXML
 from outputdok import OutputDOK
+from outputlol import OutputLOL
 
 class Main(object):
 	def __init__(self):
@@ -99,4 +100,13 @@ if __name__ == "__main__":
 	processed = InputJSON(yale_input)
 	temp = OutputDOK(processed.processedInput)
 	print(temp.returnDictionary)
+	print("             ")
+
+	print("Processed LOL")
+	print("-------------")
+	print("             ")
+	processed = InputJSON(yale_input)
+	temp = OutputLOL(processed.processedInput)
+	print(temp.returnListOfListText)
+	print(temp.lol)
 	print("             ")
