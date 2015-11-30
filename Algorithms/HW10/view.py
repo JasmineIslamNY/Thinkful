@@ -7,19 +7,19 @@ main = Main()
 
 @app.route("/", methods=['GET'])
 def output():
-	types = ['Convert', 'JSON to XML', 'XML to JSON']
-	output = main.output
 	input = main.input
+	dokOutput = str(main.dokOutput)
+	lolOutput = str(main.lolOutput)
+	yaleOutput = str(main.yaleOutput)
 
-	return render_template('convert.html', types=types, input=input, output=output)
+	return render_template('convert.html', input=input, dokOutput=dokOutput, lolOutput=lolOutput, yaleOutput=yaleOutput) 
 	
 
 @app.route("/", methods=['POST'])
 def input():
 
 	input=request.form['input']
-	inputType=request.form['types']
-	main.processInput(input, inputType)
+	main.processInput(input) 
 	
 	return redirect(url_for("output"))
 	

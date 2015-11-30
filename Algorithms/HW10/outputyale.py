@@ -4,7 +4,8 @@ class OutputYALE (object):
 		self.IA = "" 
 		self.A = ""
 		self.JA = ""
-		self.IACount = - 1
+		self.IACount = -1
+		self.firstFlag = 0
 		self.justAComma = ""
 		self.returnYaleText = ""
 	
@@ -24,10 +25,13 @@ class OutputYALE (object):
 					self.IACount += 1
 					self.A = self.A + self.justAComma + pair.value 
 					self.JA = self.JA + self.justAComma + str(self.columns)
-					self.IA = self.IA + self.justAComma + str(self.IACount)
+					if self.firstFlag == 0:
+					    self.firstFlag = 1
+					    self.IA = self.IA + self.justAComma + str(self.IACount)
 					self.justAComma =", "
     			elif pair.kind == "list":
 				self.columns = -1		
+				self.firstFlag = 0
 				self.prepareOutput(pair)
 			elif pair.kind == "group":
 				self.columns += 1

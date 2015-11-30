@@ -2,7 +2,7 @@ class OutputDOK (object):
 	def __init__(self, dataobject):
 		self.dataObject = dataobject
 		self.dok = {}
-		self.returnDictionary = ""
+		self.returnDictionaryText = ""
 		self.rows = -1
 		self.columns = -1
 
@@ -34,10 +34,10 @@ class OutputDOK (object):
 		self.prepareOutput(self.dataObject)
 
 	def returnDOK(self):
-		self.returnDictionary = 'DOK = {' + "'rows':" + str(self.rows) + ", " + "'columns':" + str(self.columns)
+		self.returnDictionaryText = 'DOK = {' + "'rows':" + str(self.rows) + ", " + "'columns':" + str(self.columns)
 		for keys, values in self.dok.items():
 			if (keys != "rows"):
 				if (keys != "columns"):
-					self.returnDictionary = self.returnDictionary + ", " 
-					self.returnDictionary = self.returnDictionary + "'" + keys + "':" + str(values)
-		self.returnDictionary = self.returnDictionary + "}"
+					self.returnDictionaryText = self.returnDictionaryText + ", " 
+					self.returnDictionaryText = self.returnDictionaryText + "'" + keys + "':" + str(values)
+		self.returnDictionaryText = self.returnDictionaryText + "}"
