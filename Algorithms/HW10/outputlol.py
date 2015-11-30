@@ -11,7 +11,7 @@ class OutputLOL (object):
 		self.lol.insert(0, addColumnText)
 		self.prepareListOfList()
 
-	def prepareOutput(self, data, tempList=[]):
+	def prepareOutput(self, data, tempList=[], group="no"):
 		while data.nextReturnPair <> None:
 
         		pair = data.returnNextPair()
@@ -26,13 +26,12 @@ class OutputLOL (object):
 				tempList.append(listEntry)
         		elif pair.kind == "group":
 				self.columns += 1
-				trash = self.prepareOutput(pair, tempList)
-		return tempList
+				self.prepareOutput(pair, tempList, "yes")
+		if group == "no":
+			return tempList
        
 	def returnOutput(self):
 		self.lol = self.prepareOutput(self.dataObject)
 
 	def prepareListOfList(self):
-		for list in self.lol:
-			for i in list:
-				print i
+		self.returnListOfListText = str(self.lol)
