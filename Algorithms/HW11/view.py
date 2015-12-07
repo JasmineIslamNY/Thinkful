@@ -8,9 +8,11 @@ main = Main()
 @app.route("/", methods=['GET'])
 def output():
 	input = main.input
-	output = main.output
+	list = main.list
+	bitVectorDisplay = main.bitVectorDisplay 
+	inclusionTest = main.inclusionTest
 
-	return render_template('convert.html', input=input, output=output) 
+	return render_template('bloom.html', input=input, list=list, bitVectorDisplay=bitVectorDisplay, inclusionTest=inclusionTest) 
 	
 
 @app.route("/", methods=['POST'])

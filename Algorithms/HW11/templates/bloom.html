@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>
+    Bloom Filter
+</h1>
+
+<form role="form" method="POST">
+    <div class="form-group">
+        <label for="input">Enter text</label>
+        <input type="text" class="form-control" id="input" name="input" placeholder="Enter Text" required>
+    </div>
+
+    <div class="form-group">
+        <label for="list">List</label>
+        <textarea class="form-control" id="list" name="list" readonly  rows="5">{{ list |join(', ') }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="bitVectorDisplay"> Bit Vector </label>
+        <textarea class="form-control" id="bitVectorDisplay" name="bitVectorDisplay" readonly  rows="1">{{ bitVectorDisplay }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="inclusionTest"> inclusionTest </label>
+        <textarea class="form-control" id="inclusionTest" name="inclusionTest" readonly  rows="5">{{ inclusionTest }}</textarea>
+    </div>
+
+	    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+{% endblock %}

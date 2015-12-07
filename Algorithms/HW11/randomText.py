@@ -29,7 +29,7 @@ class randomText(object):
 		tempNow = str(now)
 
 		divider = (10 ** (len(tempNow))) * 1.0		
-		now = now/divider		#turn now into the format 0.now)
+		now =  now/divider		#turn now into the format 0.now)
 
 		
 		now *= 0.1			#turn hash into the format 0.0now)
@@ -39,7 +39,7 @@ class randomText(object):
 			
 		now = (int(self.ascii * now)) + 32 	#32 is ascii start	
 		
-		print(now)
+		#print(now)
 		letter = chr(now)
 		time.sleep(0.25)
 		return letter	
