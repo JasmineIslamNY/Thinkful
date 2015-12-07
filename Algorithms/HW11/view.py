@@ -18,8 +18,15 @@ def output():
 @app.route("/", methods=['POST'])
 def input():
 
-	input=request.form['input']
-	main.processInput(input) 
+	if request.form['submit'] == 'word':
+		input=request.form['input']
+		main.processInput(input) 
+	elif request.form['submit'] == 'checkWord':
+		check=request.form['check']
+		main.testInclusion(check) 
+	elif request.form['submit'] == 'random':
+		random=request.form['random']
+		main.loadRandomWord(random) 
 	
 	return redirect(url_for("output"))
 	

@@ -39,7 +39,7 @@ class randomText(object):
 			
 		now = (int(self.ascii * now)) + 32 	#32 is ascii start	
 		
-		#print(now)
+		print(now)
 		letter = chr(now)
 		time.sleep(0.25)
 		return letter	

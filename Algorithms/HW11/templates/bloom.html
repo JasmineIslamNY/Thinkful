@@ -8,12 +8,14 @@
 <form role="form" method="POST">
     <div class="form-group">
         <label for="input">Enter text</label>
-        <input type="text" class="form-control" id="input" name="input" placeholder="Enter Text" required>
+        <input type="text" class="form-control" id="input" name="input" placeholder="Enter Text">
     </div>
+
+	    <button type="submit" class="btn btn-default" id=submit name="submit" value="word">Submit</button>
 
     <div class="form-group">
         <label for="list">List</label>
-        <textarea class="form-control" id="list" name="list" readonly  rows="5">{{ list |join(', ') }}</textarea>
+        <textarea class="form-control" id="list" name="list" readonly  rows="2">{{ list |join(', ') }}</textarea>
     </div>
 
     <div class="form-group">
@@ -22,10 +24,22 @@
     </div>
 
     <div class="form-group">
-        <label for="inclusionTest"> inclusionTest </label>
-        <textarea class="form-control" id="inclusionTest" name="inclusionTest" readonly  rows="5">{{ inclusionTest }}</textarea>
+        <label for="check">Enter text to check</label>
+        <input type="text" class="form-control" id="check" name="check" placeholder="Enter Text">
     </div>
 
-	    <button type="submit" class="btn btn-default">Submit</button>
+	    <button type="submit" class="btn btn-default" id=submit name="submit" value="checkWord">Check Word</button>
+
+    <div class="form-group">
+        <label for="inclusionTest"> inclusionTest </label>
+        <textarea class="form-control" id="inclusionTest" name="inclusionTest" readonly  rows="2">{{ inclusionTest }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="random">Enter random number</label>
+        <input type="text" class="form-control" id="random" name="random" placeholder="Enter Number">
+    </div>
+
+	    <button type="submit" class="btn btn-default" id=submit name="submit" value="random">Generate Random Words</button>
 </form>
 {% endblock %}

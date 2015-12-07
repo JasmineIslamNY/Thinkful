@@ -26,19 +26,21 @@ class Main(object):
 		
 		self.bitVectorDisplay = ""
 		for n in range(0,32):
-			self.bitVectorDisplay = self.bitVectorDisplay + str(self.bitVector[n])
+			if self.bitVector[n] == 0:
+				self.bitVectorDisplay = self.bitVectorDisplay + "0"
+			else:
+				self.bitVectorDisplay = self.bitVectorDisplay + "X"
 
 	def loadBitVector(self, size=32):		
 		for i in range(0, size):
 			self.bitVector[i] = 0	
 	
 	def loadRandomWord(self, loopNumber=2):
-		i = 0
-		while i < loopNumber:
+		loopNumber = int(loopNumber)
+		for i in range(0, loopNumber):
 			wordObject = randomText()
-			word = wordObject.createRandomWord(50)
+			word = wordObject.createRandomWord()
 			self.processInput(word)
-			i += 1
 
 	def checkBitVector(self, word):
 		hash1 = self.hashObject1.createHash(word)	
