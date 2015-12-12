@@ -30,6 +30,7 @@ class lzwCompressor(object):
 				tempResult = 0
 
 			if tempInputSection == "#":
+				self.compressed = self.compressed + "00000"
 				return self.compressed
 			elif tempResult != 0:  
 				tracker += 1

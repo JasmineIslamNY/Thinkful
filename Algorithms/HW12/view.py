@@ -16,9 +16,13 @@ def output():
 @app.route("/", methods=['POST'])
 def input():
 
-	input=request.form['input']
-	main.processInput(input) 
-	
+	if request.form['submit'] == 'encode':
+		input=request.form['input']
+		main.encodeInput(input) 
+	elif request.form['submit'] == 'decode':
+		input=request.form['input']
+		main.decodeInput(input) 
+
 	return redirect(url_for("output"))
 	
 if __name__ == "__main__":
