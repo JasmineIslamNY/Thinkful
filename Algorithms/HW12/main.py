@@ -5,14 +5,21 @@ class Main(object):
 	def __init__(self):
 		self.output = ""
 		self.input = ""
+		self.label = ""
 
 	def encodeInput(self, input):
 		self.input = input
+		countBeforeEncode = str(len(input) * 5)
 
 		process = lzwCompressor()
 		self.output = process.inputCompress(input)
 
+		countAfterEncode = str(len(self.output))
+		
+		self.label = "Length before compression = " + countBeforeEncode + ". Length after compression = " + countAfterEncode + "."
+
 	def decodeInput(self, input):
+		self.label = ""
 		self.input = input
 
 		process = lzwDeCompressor()

@@ -9,8 +9,9 @@ main = Main()
 def output():
 	input = main.input
 	output = main.output
+	label =	main.label
 
-	return render_template('compress_view.html', input=input, output=output) 
+	return render_template('compress_view.html', input=input, output=output, label=label) 
 	
 
 @app.route("/", methods=['POST'])
