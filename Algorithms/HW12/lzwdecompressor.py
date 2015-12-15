@@ -60,10 +60,13 @@ class lzwDeCompressor(object):
 			if counter == 0:
 				return 0
 			else:
-				counter -= 1
-				temp = binaryCharacter[1:]
-				child = self.retrieveFromReverseDictionary(temp, counter)
-				return child
+				if binaryCharacter[0] == "1":
+					return 0
+				else:
+					counter -= 1
+					temp = binaryCharacter[1:]
+					child = self.retrieveFromReverseDictionary(temp, counter)
+					return child
 		else:
 			return tempCharacter	
 
