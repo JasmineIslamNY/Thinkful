@@ -45,12 +45,12 @@ def positionGrowth():
 	return result
 
 if __name__ == "__main__":
-	print("Lots: {}".format(randomLots()))
-	print("Login: {}".format(randomLogin()))
-	print("SyncType: {}".format(randomWLSyncType()))
-	print("Currency: {}".format(randomCurrency()))
-	print("SpreadsheetRow: {}".format(randomSpreadsheetRow()))
-	print("RandomPrice: {0:.2f}".format(randomPrice()))
-	print("PriceGrowth: {0:.2f}".format(priceGrowth()))
-	print("RandomPosition: {}".format(randomPosition()))
-	print("PositionGrowth: {0:.2f}".format(positionGrowth()))
+	print("Lots {}".format(randomLots()))
+	print("Login {}".format(randomLogin()))
+	print("SyncType {}".format(randomWLSyncType()))
+	print("Currency {}".format(randomCurrency()))
+	print("SpreadsheetRow {}".format(randomSpreadsheetRow()))
+	print("RandomPrice {0:.2f}".format(randomPrice()))
+	print("PriceGrowth {0:.2f}".format(priceGrowth()))
+	print("RandomPosition {}".format(randomPosition()))
+	print("PositionGrowth {0:.2f}".format(positionGrowth()))
