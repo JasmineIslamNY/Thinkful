@@ -28,12 +28,12 @@ class RandomForWL(object):
 		result = random.choice(choices)
 		return result
 
-	def randomSpreadsheetRow(self, rowSize=10000):
+	def randomRow(self, rowSize=10000):
 		result = random.randint(0, rowSize)	
 		return result
 	
 	def randomPrice(self):
-		result = random.uniform(0,10000)	
+		result = random.uniform(0,10000000000)	
 		return result
 
 	def priceGrowth(self):
@@ -41,7 +41,7 @@ class RandomForWL(object):
 		return result
 
 	def randomPosition(self):
-		result = random.randint(0,10000)	
+		result = random.randint(0,10000000000)	
 		return result
 	
 	def positionGrowth(self):
@@ -54,7 +54,7 @@ if __name__ == "__main__":
 	print("Login {}".format(r.randomLogin()))
 	print("SyncType {}".format(r.randomWLSyncType()))
 	print("Currency {}".format(r.randomCurrency()))
-	print("SpreadsheetRow {}".format(r.randomSpreadsheetRow(10000)))
+	print("Row {}".format(r.randomRow(10000)))
 	print("RandomPrice {0:.2f}".format(r.randomPrice()))
 	print("PriceGrowth {0:.2f}".format(r.priceGrowth()))
 	print("RandomPosition {}".format(r.randomPosition()))

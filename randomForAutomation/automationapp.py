@@ -1,13 +1,15 @@
 from randomforwl import * 
 from queue import *
+from tickers import *
 
 def runApp():
 	selection = ""
 	r = RandomForWL()
 	q = Queue()
+	t = Tickers()
 	print("Select from the following:")
 	print("  1: Print all random options.")
-	print("  2: Print only random spreadsheet row.")
+	print("  2: Print a random position.")
 	print("  3: Add ticker to Queue.")
 	print("  4: Retrieve ticker from Queue.")
 	print("  X: Exit")
@@ -18,7 +20,8 @@ def runApp():
 			print("Login {}".format(r.randomLogin()))
 			print("SyncType {}".format(r.randomWLSyncType()))
 			print("Currency {}".format(r.randomCurrency()))
-			print("SpreadsheetRow {}".format(r.randomSpreadsheetRow(2820)))
+			tick = r.randomRow(2820)
+			print("RandomTicker {}".format(t.returnTicker(tick)))
 			print("RandomPrice {0:.2f}".format(r.randomPrice()))
 			print("PriceGrowth {0:.2f}".format(r.priceGrowth()))
 			print("RandomPosition {}".format(r.randomPosition()))
@@ -28,7 +31,10 @@ def runApp():
 			while count < 30:
 				print(" ")
 				count += 1
-			print("SpreadsheetRow {}".format(r.randomSpreadsheetRow(2820)))
+			tick = r.randomRow(2820)
+			print("RandomTicker {}".format(t.returnTicker(tick)))
+			print("RandomPrice {0:.2f}".format(r.randomPrice()))
+			print("RandomPosition {}".format(r.randomPosition()))
 		elif selection == "3":
 			ticker = raw_input("Enter ticker: ")
 			q.enqueue(ticker)
@@ -38,7 +44,9 @@ def runApp():
 				print(" ")
 				count += 1
 			print(q.dequeue())
-		elif selection == "X":
+		elif selection == "X" or selection == "x":
+			if selection == "x":
+				selection = "X"
 			print("Exiting")			
 		
 
