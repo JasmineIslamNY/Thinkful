@@ -31,17 +31,22 @@ class RandomForWL(object):
 	def randomRow(self, rowSize=10000):
 		result = random.randint(0, rowSize)	
 		return result
+
+	def randomResultLimit(self, limitSize=10):
+		limitExponent = random.randint(0, limitSize)	
+		limit = 10 ** limitExponent
+		return limit
 	
-	def randomPrice(self):
-		result = random.uniform(0,10000000000)	
+	def randomPrice(self, resultLimit=10000000000):
+		result = random.uniform(0,resultLimit)	
 		return result
 
 	def priceGrowth(self):
 		result = random.uniform(0,100)	
 		return result
 
-	def randomPosition(self):
-		result = random.randint(0,10000000000)	
+	def randomPosition(self, resultLimit=10000000000):
+		result = random.randint(0,resultLimit)	
 		return result
 	
 	def positionGrowth(self):

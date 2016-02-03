@@ -21,10 +21,11 @@ def runApp():
 			print("SyncType {}".format(r.randomWLSyncType()))
 			print("Currency {}".format(r.randomCurrency()))
 			tick = r.randomRow(2820)
+			limit = r.randomResultLimit(5)
 			print("RandomTicker {}".format(t.returnTicker(tick)))
-			print("RandomPrice {0:.2f}".format(r.randomPrice()))
+			print("RandomPrice {0:.2f}".format(r.randomPrice(limit)))
 			print("PriceGrowth {0:.2f}".format(r.priceGrowth()))
-			print("RandomPosition {}".format(r.randomPosition()))
+			print("RandomPosition {}".format(r.randomPosition(limit)))
 			print("PositionGrowth {0:.2f}".format(r.positionGrowth()))
 		elif selection == "2":
 			count = 0
@@ -32,9 +33,10 @@ def runApp():
 				print(" ")
 				count += 1
 			tick = r.randomRow(2820)
+			limit = r.randomResultLimit(5)
 			print("RandomTicker {}".format(t.returnTicker(tick)))
-			print("RandomPrice {0:.2f}".format(r.randomPrice()))
-			print("RandomPosition {}".format(r.randomPosition()))
+			print("RandomPrice {0:.2f}".format(r.randomPrice(limit)))
+			print("RandomPosition {}".format(r.randomPosition(limit)))
 		elif selection == "3":
 			ticker = raw_input("Enter ticker: ")
 			q.enqueue(ticker)
