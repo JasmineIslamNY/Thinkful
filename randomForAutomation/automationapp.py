@@ -42,7 +42,9 @@ def runApp():
 		elif selection == "3":
 			tick = raw_input("Enter ticker: ")
 			country = raw_input("Enter country: ")
-			ticker = [tick, country]
+			price = raw_input("Enter price: ")
+			position = raw_input("Enter position: ")
+			ticker = [tick, country, price, position]
 			q.enqueue(ticker)
 		elif selection == "4":
 			count = 0
@@ -55,6 +57,8 @@ def runApp():
 			else:
 				print("Ticker {}".format(ticker[0]))
 				print("Country {}".format(ticker[1]))
+				print("Price {}".format(ticker[2]))
+				print("Position {}".format(ticker[3]))
 		elif selection == "X" or selection == "x":
 			if selection == "x":
 				selection = "X"
