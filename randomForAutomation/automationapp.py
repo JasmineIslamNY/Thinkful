@@ -9,7 +9,7 @@ def runApp():
 	t = Tickers()
 	print("Select from the following:")
 	print("  1: Print all random options.")
-	print("  2: Print a random position.")
+	print("  2: Print a random position. (also adds to Queue)")
 	print("  3: Add ticker to Queue.")
 	print("  4: Retrieve ticker from Queue.")
 	print("  X: Exit")
@@ -35,10 +35,23 @@ def runApp():
 				count += 1
 			tick = r.randomRow(2820)
 			limit = r.randomResultLimit(5)
-			print("RandomTicker {}".format(t.returnTicker(tick)[0]))
-			print("TickerCountry {}".format(t.returnTicker(tick)[1]))
-			print("RandomPrice {0:.2f}".format(r.randomPrice(limit)))
-			print("RandomPosition {}".format(r.randomPosition(limit)))
+
+			#create random ticker, and price and position
+			rndTicker = t.returnTicker(tick)[0]
+			rndCountry = t.returnTicker(tick)[1]
+			rndPrice = r.randomPrice(limit)
+			rndPosition = r.randomPosition(limit)
+
+			#save the position to the queue for retrieval later
+			position = [rndTicker, rndCountry, rndPrice, rndPosition]
+			q.enqueue(position)
+
+			#print the information to the screen for Perfecto to ingest
+			print("RandomTicker {}".format(rndTicker))
+			print("TickerCountry {}".format(rndCountry))
+			print("RandomPrice {0:.2f}".format(rndPrice))
+			print("RandomPosition {}".format(rndPosition))
+
 		elif selection == "3":
 			tick = raw_input("Enter ticker: ")
 			country = raw_input("Enter country: ")
@@ -57,7 +70,7 @@ def runApp():
 			else:
 				print("Ticker {}".format(ticker[0]))
 				print("Country {}".format(ticker[1]))
-				print("Price {}".format(ticker[2]))
+				print("Price {0:.2f}".format(ticker[2]))
 				print("Position {}".format(ticker[3]))
 		elif selection == "X" or selection == "x":
 			if selection == "x":
