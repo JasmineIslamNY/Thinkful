@@ -4,11 +4,13 @@ from tickers import *
 
 def runApp():
 	selection = ""
+	randomExchangeForRun = ""
+	randomCurrencyAndExchange = ""
 	r = RandomForWL()
 	q = Queue()
 	t = Tickers()
 	print("Select from the following:")
-	print("  1: Print all random options.")
+	print("  1: Print options for test run.")
 	print("  2: Print a random position. (also adds to Queue)")
 	print("  3: Add ticker to Queue.")
 	print("  4: Retrieve ticker from Queue.")
@@ -16,10 +18,19 @@ def runApp():
 	while selection != "X":
 		selection = raw_input("Enter your selection: ")
 		if selection == "1":
+			#Choose the currency and exchange for this run and save for the object
+			randomCurrencyAndExchange = r.randomCurrencyAndExchange()
+			#Choose whether the test will be exclusive for one exchange or securities from any exchange are fine (only 1/5 will be for a single exchange)
+			randomExchangeForRun = r.randomExchangeForRun()
+
 			print("Lots {}".format(r.randomLots()))
 			print("Login {}".format(r.randomLogin()))
 			print("SyncType {}".format(r.randomWLSyncType()))
-			print("Currency {}".format(r.randomCurrency()))
+			print("Currency {}".format(randomCurrencyAndExchange[0]))
+			print("Exchange {}".format(randomCurrencyAndExchange[1]))
+			print("Random Exchange {}".format(randomExchangeForRun))
+
+			"""
 			tick = r.randomRow(2820)
 			limit = r.randomResultLimit(5)
 			print("RandomTicker {}".format(t.returnTicker(tick)[0]))
@@ -28,17 +39,30 @@ def runApp():
 			print("PriceGrowth {0:.2f}".format(r.priceGrowth()))
 			print("RandomPosition {}".format(r.randomPosition(limit)))
 			print("PositionGrowth {0:.2f}".format(r.positionGrowth()))
+			"""
 		elif selection == "2":
 			count = 0
 			while count < 30:
 				print(" ")
 				count += 1
-			tick = r.randomRow(2820)
+
+			#create random ticker, check if random exchange is yes/no, and depending on that check if random ticker exchange matches run's selected exchange
+			x = 0
+			tempTicker = ""
+			while x == 0:
+				tick = r.randomRow(2820)
+				tempTicker = t.returnTicker(tick)
+				if randomExchangeForRun == "No":
+					if tempTicker[1] == randomCurrencyAndExchange[1]:
+						x = 1
+				else:
+					x = 1
+
 			limit = r.randomResultLimit(5)
 
-			#create random ticker, and price and position
-			rndTicker = t.returnTicker(tick)[0]
-			rndCountry = t.returnTicker(tick)[1]
+			#assign random ticker, and price and position
+			rndTicker = tempTicker[0]
+			rndCountry = tempTicker[1]
 			rndPrice = r.randomPrice(limit)
 			rndPosition = r.randomPosition(limit)
 
@@ -59,6 +83,7 @@ def runApp():
 			position = raw_input("Enter position: ")
 			ticker = [tick, country, price, position]
 			q.enqueue(ticker)
+
 		elif selection == "4":
 			count = 0
 			while count < 30:
