@@ -20,26 +20,18 @@ def runApp():
 		if selection == "1":
 			#Choose the currency and exchange for this run and save for the object
 			randomCurrencyAndExchange = r.randomCurrencyAndExchange()
+
 			#Choose whether the test will be exclusive for one exchange or securities from any exchange are fine (only 1/5 will be for a single exchange)
 			randomExchangeForRun = r.randomExchangeForRun()
 
+			#Display options for Perfecto to pick up 
 			print("Lots {}".format(r.randomLots()))
 			print("Login {}".format(r.randomLogin()))
 			print("SyncType {}".format(r.randomWLSyncType()))
 			print("Currency {}".format(randomCurrencyAndExchange[0]))
 			print("Exchange {}".format(randomCurrencyAndExchange[1]))
-			print("Random Exchange {}".format(randomExchangeForRun))
+			print("RandomExchange {}".format(randomExchangeForRun))
 
-			"""
-			tick = r.randomRow(2820)
-			limit = r.randomResultLimit(5)
-			print("RandomTicker {}".format(t.returnTicker(tick)[0]))
-			print("TickerCountry {}".format(t.returnTicker(tick)[1]))
-			print("RandomPrice {0:.2f}".format(r.randomPrice(limit)))
-			print("PriceGrowth {0:.2f}".format(r.priceGrowth()))
-			print("RandomPosition {}".format(r.randomPosition(limit)))
-			print("PositionGrowth {0:.2f}".format(r.positionGrowth()))
-			"""
 		elif selection == "2":
 			count = 0
 			while count < 30:
